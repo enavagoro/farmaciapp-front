@@ -1,0 +1,139 @@
+ion-content {
+    --overflow: hidden;
+}
+
+.icono-seleccionado{
+  color: blue;
+}
+
+.icono-deseleccionado{
+  color: red;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  margin-top: 2% !important;
+  margin-right: 2%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.contenedor{
+  width: 100%;
+  display: flex;
+}
+
+.contenedor-principal{
+  width: 100%;
+  background: red;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.logo {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  q {
+    font-style: italic;
+    quotes: "« " " »";
+  }
+
+  .card {
+    margin-top: 2%;
+    height: 230px;
+    width: 200px;
+    background: #f8e5e9;
+    border-radius: 10px;
+  }
+
+  .containerCard{
+      height: 250px;
+      width: 215px;
+      margin-left: 10px !important;
+      padding-right: 10px !important;
+      padding-left: 10px !important;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      display: inline-flex;
+  }
+
+  .cursos{
+    width: 90%;
+    margin: 0 auto;
+    text-align: center
+    }
+
+  .imagen{
+    width: 40%;
+    margin-left: 0%;
+  }
+
+.contenedor-lateral{
+  width: 60%;
+  height: 100vh;
+  background: blue;
+  overflow-y: auto;
+}
+
+ion-avatar{
+  background: red;
+  text-align: center;
+
+  ion-label{
+    margin-top: 30%;
+  }
+}
+
+
+  .celular{
+    display: none;
+  }
+
+@media (max-width:900px){
+  .celular{
+    display: block;
+  }
+
+  .contenedor{
+    display: absolute;
+  }
+
+  .contenedor-lateral{
+     position: fixed; /* Stay in place */
+     z-index: 1; /* Sit on top */
+     left: 0;
+     top: 0;
+     width: 100% !important; /* Full width */
+     height: 100% !important; /* Full height */
+     overflow: auto; /* Enable scroll if needed */
+     z-index: 999 !important;
+     background: blue;
+     animation: subir 0s ease-in;
+  }
+
+  @keyframes subir{
+    from{
+      transform: translateY(100%);
+    }
+    to{
+      transform: translateY(0%);
+    }
+  }
+}

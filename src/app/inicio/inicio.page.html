@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>inicio</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="cambiarEstado();"><!-- (click)="cerrarModal()" -->
+        <ion-icon slot="icon-only" name="pricetag"></ion-icon>
+      </ion-button>
+      <ion-button (click)="cambiarEstado();" *ngIf="banderaBarra==true"><!-- (click)="cerrarModal()" -->
+        <ion-icon class="icono-seleccionado" slot="icon-only" name="receipt"></ion-icon>
+      </ion-button>
+      <ion-button (click)="cambiarEstado();" *ngIf="banderaBarra==false"><!-- (click)="cerrarModal()" -->
+        <ion-icon class="icono-deseleccionado" slot="icon-only" name="receipt"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-scroll">
+  <div class="contenedor">
+    <div class="contenedor-principal">
+      <div class="cursos">
+        <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
+          <div class="card">
+            <h1 style="color:#fa949d">{{p.titulo}}</h1>
+            <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
+            <h1 style="color:#fa949d">{{p.precio}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contenedor-lateral" *ngIf="banderaBarra">
+      <div class="celular">
+        <ion-button (click)="cambiarEstado();"><!-- (click)="cerrarModal()" -->
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-item class="item-archivo" for="input-archivo" *ngFor="let p of productos">
+        <ion-avatar slot="start">
+          <ion-label>{{p.cantidadMaxima}}</ion-label>
+        </ion-avatar>
+        <ion-label id="seleccionador-archivo" class="seleccionador-archivo" for="input-archivo">{{p.titulo}}<br>{{p.precio}}$</ion-label>
+        <p>{{p.precio}}$</p>
+      </ion-item>
+
+      <ion-footer>
+        <ion-toolbar>
+          <!-- esto estoy intentandolo dejar abajo :B -->
+          <ion-title>Footer</ion-title>
+        </ion-toolbar>
+      </ion-footer>
+    </div>
+  </div>
+</ion-content>

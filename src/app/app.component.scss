@@ -1,3 +1,10 @@
+.split-pane-md.split-pane-visible>.split-pane-side {
+    min-width: 20vw;
+    max-width: 0%;
+    margin: 0%;
+    //border: none;
+}
+
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
