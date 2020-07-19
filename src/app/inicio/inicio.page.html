@@ -1,9 +1,16 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button style="--color:white;"></ion-menu-button>
+      </ion-buttons>
+    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="cambiarEstado(0);"><!-- (click)="cerrarModal()" -->
+      <!--
+      <ion-button>
         <ion-icon slot="icon-only" name="pricetag"></ion-icon>
       </ion-button>
+      -->
       <ion-button (click)="cambiarEstado(1);" *ngIf="banderaBarra==true"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-seleccionado" slot="icon-only" name="receipt"></ion-icon>
       </ion-button>
@@ -19,38 +26,64 @@
     <div class="contenedor-principal" *ngIf="banderaPrincipal==true">
       <div class="cursos">
         <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
-          <div class="card">
-            <h1 style="color:#fa949d">{{p.titulo}}</h1>
-            <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
-            <h1 style="color:#fa949d">{{p.precio}}</h1>
-          </div>
-        </div>
-        <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
-          <div class="card">
-            <h1 style="color:#fa949d">{{p.titulo}}</h1>
-            <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
-            <h1 style="color:#fa949d">{{p.precio}}</h1>
-          </div>
-        </div>
-        <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
-          <div class="card">
-            <h1 style="color:#fa949d">{{p.titulo}}</h1>
-            <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
-            <h1 style="color:#fa949d">{{p.precio}}</h1>
-          </div>
-        </div>
-        <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
-          <div class="card">
+          <div class="card" (click)="abrirDetalle(p);">
             <h1 style="color:#fa949d">{{p.titulo}}</h1>
             <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
             <h1 style="color:#fa949d">{{p.precio}}</h1>
           </div>
         </div>
       </div>
+
+<!-- falta su div loco con padding, para empujar la lista de cards y que se vean todas cuando sea una cantidad elevada -->
+
     </div>
 
     <div class="contenedor-principal" *ngIf="banderaPrincipal==false">
-      <h1>hola</h1>
+      <div style="margin-top:2%; margin-left:2%;">
+        <ion-buttons>
+          <ion-button (click)="cerrarDetalle()"><!-- (click)="cerrarModal()" -->
+            <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+
+      <div class="contenedor-textos-titulos">
+        <h1 class="titulo-producto">{{producto.titulo}}</h1>
+        <h1 class="precio-producto">${{producto.precio}}</h1>
+      </div>
+      <div class="contenedor-textos-titulos">
+        <p class="codigo-producto">Codigo: {{producto.codigo}}</p>
+        <div class="contenedor-estrellas">
+          <p class="codigo-producto">estrellas o cantidad de ventas idk</p>
+        </div>
+      </div>
+
+      <div class="card-producto">
+        <div class="contenedor-imagen-producto">
+          <img class="imagen-producto" src="../assets/icon/pingu.svg">
+        </div>
+      </div>
+      <p class="descripcion-producto">Descripción:<br><br>{{producto.descripcion}}</p>
+
+      <p class="descripcion-cantidad">Cantidad<br><br>{{producto.cantidadMaxima}} unidades disponibles</p>
+
+      <div class="selector">
+          <ion-buttons>
+            <ion-button class="boton-izquierdo" (click)="restarProducto()">
+              <ion-icon class="icono-boton" name="remove" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-label class="numero-actual">{{selector.numeroActual}}</ion-label>
+          <ion-buttons>
+            <ion-button class="boton-derecho" (click)="sumarProducto()">
+              <ion-icon class="icono-boton" name="add" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+      </div>
+
+      <div class="contenedor-boton-producto">
+        <ion-button class="boton-agregar" (click)="confirmarAgregar()" [disabled]="selector.numeroActual==0">Agregar Producto</ion-button>
+      </div>
     </div>
 
     <div class="contenedor-lateral" *ngIf="banderaBarra">
@@ -59,8 +92,8 @@
           <ion-icon slot="icon-only" name="close"></ion-icon>
         </ion-button>
       </div>
-
-      <ion-item class="item-archivo" for="input-archivo" *ngFor="let p of productos">
+<!-- esto debería ir con el detalle correcto, pd: los colores azules del lateral en modo telefono ignorar pls, es pa ver los tamaños -->
+      <ion-item *ngFor="let p of productos">
         <ion-avatar slot="start">
           <ion-label>{{p.cantidadMaxima}}</ion-label>
         </ion-avatar>
@@ -77,7 +110,7 @@
             <ion-label>Descuento</ion-label>
             <ion-buttons>
               <ion-button>
-                <ion-icon class="icono-deseleccionado" slot="icon-only" name="calculator"></ion-icon>
+                <ion-icon slot="icon-only" name="calculator"></ion-icon>
               </ion-button>
             </ion-buttons>
           </ion-item>
@@ -85,7 +118,7 @@
             <ion-label>Total</ion-label>
           </ion-item>
           <div class="contenedor-boton">
-            <ion-button class="boton-pago">Generar</ion-button>
+            <ion-button class="boton-pago">Generar Pago</ion-button>
           </div>
         </div>
     </div>

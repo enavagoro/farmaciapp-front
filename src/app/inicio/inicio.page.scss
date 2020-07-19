@@ -3,15 +3,15 @@ ion-content {
 }
 
 ion-toolbar{
-  //--background: #fff0de;
+  --background: #c9ccf0;
 }
 
 .icono-seleccionado{
-  color: blue;
+  color: white;
 }
 
 .icono-deseleccionado{
-  color: red;
+  color: #ebebeb;
 }
 
 ::-webkit-scrollbar {
@@ -48,6 +48,8 @@ ion-toolbar{
   height: 100vh;
   overflow-y: auto;
 }
+
+/* Lista de Productos */
 
 .logo {
     width: 100%;
@@ -93,6 +95,115 @@ ion-toolbar{
     color:#f5f5f5;
   }
 
+/* Producto */
+
+.contenedor-textos-titulos{
+  width: 100%;
+  display: flex;
+}
+
+.titulo-producto{
+  width: 92%;
+  font-size: 27px;
+  padding-left: 8%;
+}
+
+.precio-producto{
+  width: 82%;
+  padding-left: 18%;
+  font-size: 27px;
+}
+
+.codigo-producto{
+  font-size: 21px;
+  width: 92%;
+  padding-left: 8%;
+  font-weight: 300;
+}
+
+.contenedor-estrellas{
+  width: 60%;
+  margin-left: 10%;
+}
+.item-estrellas{
+  --background: #fafafe;
+}
+
+.badge-estrella{
+  padding-top: 3px;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-bottom: 2px;
+  background: red;
+}
+
+.descripcion-producto{
+  font-size: 21px;
+  width: 92%;
+  padding-left: 8%;
+  font-weight: 300;
+}
+
+.descripcion-cantidad{
+  font-size: 21px;
+  text-align: center;
+  font-weight: 300;
+}
+
+.card-producto{
+  width: 80%;
+  margin-left: 8%;
+  border-radius: 15px;
+  background: #c9ccf0;
+}
+
+.contenedor-imagen-producto{
+  width: 100%;
+}
+
+.imagen-producto{
+  width: 250px;
+  margin-left: calc((100% - 250px)/2);
+}
+
+.selector{
+  display: flex;
+  width: 30%;
+  margin-left: 35%;
+}
+
+.boton-izquierdo{
+  width: 100%;
+  background: #c9ccf0;
+  border-radius: 200px;
+}
+
+.numero-actual{
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+
+.boton-derecho{
+  width: 100%;
+  background: #c9ccf0;
+  border-radius: 200px;
+}
+
+.contenedor-boton-producto{
+  padding-bottom: 15%;
+}
+
+.boton-agregar{
+  --background: #c9ccf0;
+  --background-activated:#c9ccf0;
+  --background-focused:#c9ccf0;
+  --background-hover:#c9ccf0;
+  width: 50% !important;
+  margin-left: 25% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
 
 /* lado derecho */
 
@@ -105,7 +216,7 @@ ion-toolbar{
   }
 
   ion-avatar{
-    background: #efeffd;
+    background: #c9ccf0;
     text-align: center;
 
     ion-label{
@@ -136,8 +247,14 @@ ion-toolbar{
   }
 
   .boton-pago{
-    width: 80%;
-    margin-left: 10%;
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-top: 1%;
+    margin-bottom: 0%;
   }
   .celular{
     display: none;
@@ -151,6 +268,33 @@ ion-toolbar{
   .contenedor{
     display: absolute;
   }
+
+  /* producto */
+
+
+  .selector{
+    display: flex;
+    width: 60%;
+    margin-left: 20%;
+  }
+
+  .contenedor-boton-producto{
+    margin-top: 5%;
+    padding-bottom: 20%;
+  }
+
+  .boton-agregar{
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-top: 5%;
+    margin-bottom: 2%;
+  }
+
+  /* parte derecha */
 
   .contenedor-lateral{
      position: fixed; /* Stay in place */
@@ -188,8 +332,14 @@ ion-toolbar{
   }
 
   .boton-pago{
-    width: 80%;
-    margin-left: 10%;
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-top: 5%;
+    margin-bottom: 2%;
   }
 
   @keyframes subir{
