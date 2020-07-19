@@ -1,15 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>inicio</ion-title>
-
     <ion-buttons slot="end">
-      <ion-button (click)="cambiarEstado();"><!-- (click)="cerrarModal()" -->
+      <ion-button (click)="cambiarEstado(0);"><!-- (click)="cerrarModal()" -->
         <ion-icon slot="icon-only" name="pricetag"></ion-icon>
       </ion-button>
-      <ion-button (click)="cambiarEstado();" *ngIf="banderaBarra==true"><!-- (click)="cerrarModal()" -->
+      <ion-button (click)="cambiarEstado(1);" *ngIf="banderaBarra==true"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-seleccionado" slot="icon-only" name="receipt"></ion-icon>
       </ion-button>
-      <ion-button (click)="cambiarEstado();" *ngIf="banderaBarra==false"><!-- (click)="cerrarModal()" -->
+      <ion-button (click)="cambiarEstado(1);" *ngIf="banderaBarra==false"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-deseleccionado" slot="icon-only" name="receipt"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -18,8 +16,29 @@
 
 <ion-content class="no-scroll">
   <div class="contenedor">
-    <div class="contenedor-principal">
+    <div class="contenedor-principal" *ngIf="banderaPrincipal==true">
       <div class="cursos">
+        <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
+          <div class="card">
+            <h1 style="color:#fa949d">{{p.titulo}}</h1>
+            <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
+            <h1 style="color:#fa949d">{{p.precio}}</h1>
+          </div>
+        </div>
+        <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
+          <div class="card">
+            <h1 style="color:#fa949d">{{p.titulo}}</h1>
+            <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
+            <h1 style="color:#fa949d">{{p.precio}}</h1>
+          </div>
+        </div>
+        <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
+          <div class="card">
+            <h1 style="color:#fa949d">{{p.titulo}}</h1>
+            <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
+            <h1 style="color:#fa949d">{{p.precio}}</h1>
+          </div>
+        </div>
         <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
           <div class="card">
             <h1 style="color:#fa949d">{{p.titulo}}</h1>
@@ -30,9 +49,13 @@
       </div>
     </div>
 
+    <div class="contenedor-principal" *ngIf="banderaPrincipal==false">
+      <h1>hola</h1>
+    </div>
+
     <div class="contenedor-lateral" *ngIf="banderaBarra">
       <div class="celular">
-        <ion-button (click)="cambiarEstado();"><!-- (click)="cerrarModal()" -->
+        <ion-button (click)="cambiarEstado(1);"><!-- (click)="cerrarModal()" -->
           <ion-icon slot="icon-only" name="close"></ion-icon>
         </ion-button>
       </div>
@@ -41,16 +64,30 @@
         <ion-avatar slot="start">
           <ion-label>{{p.cantidadMaxima}}</ion-label>
         </ion-avatar>
-        <ion-label id="seleccionador-archivo" class="seleccionador-archivo" for="input-archivo">{{p.titulo}}<br>{{p.precio}}$</ion-label>
+        <ion-label>{{p.titulo}}<p>{{p.precio}}$</p></ion-label>
         <p>{{p.precio}}$</p>
       </ion-item>
 
-      <ion-footer>
-        <ion-toolbar>
-          <!-- esto estoy intentandolo dejar abajo :B -->
-          <ion-title>Footer</ion-title>
-        </ion-toolbar>
-      </ion-footer>
+      <ion-item lines="none" class="item-final">
+
+      </ion-item>
+
+        <div class="footer">
+          <ion-item>
+            <ion-label>Descuento</ion-label>
+            <ion-buttons>
+              <ion-button>
+                <ion-icon class="icono-deseleccionado" slot="icon-only" name="calculator"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          <ion-item>
+            <ion-label>Total</ion-label>
+          </ion-item>
+          <div class="contenedor-boton">
+            <ion-button class="boton-pago">Generar</ion-button>
+          </div>
+        </div>
     </div>
   </div>
 </ion-content>

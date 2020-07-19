@@ -19,6 +19,7 @@ export class InicioPage implements OnInit {
 
   */
   banderaBarra = true;
+  banderaPrincipal = false;
   productos = [];
   /* hardcodeo del weno */
 
@@ -36,13 +37,19 @@ export class InicioPage implements OnInit {
 
   ngOnInit() {
     /* lol */
-    
+
     this.productos = this.arregloLlegada;
     console.log(this.productos);
   }
 
-  cambiarEstado(){
-    this.banderaBarra = !this.banderaBarra;
+  cambiarEstado(valor){
+
+    if(valor==0){
+      this.banderaPrincipal = !this.banderaPrincipal;
+    }
+    if(valor==1){
+      this.banderaBarra = !this.banderaBarra;
+    }
   }
 
 /* las funciones aún no están realizadas es mero testeo */
