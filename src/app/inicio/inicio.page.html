@@ -73,7 +73,14 @@
               <ion-icon class="icono-boton" name="remove" slot="icon-only"></ion-icon>
             </ion-button>
           </ion-buttons>
-          <ion-label class="numero-actual">{{selector.numeroActual}}</ion-label>
+
+
+          <ion-label class="numero-actual" (click)="verInput = true" *ngIf="!verInput">{{selector.numeroActual}}</ion-label>
+          <ion-label class="numero-actual" *ngIf="verInput"><ion-input [(ngModel)]="selector.numeroActual"></ion-input></ion-label>
+
+
+
+
           <ion-buttons>
             <ion-button class="boton-derecho" (click)="sumarProducto()">
               <ion-icon class="icono-boton" name="add" slot="icon-only"></ion-icon>
@@ -93,9 +100,12 @@
         </ion-button>
       </div>
 <!-- esto debería ir con el detalle correcto, pd: los colores azules del lateral en modo telefono ignorar pls, es pa ver los tamaños -->
-      <ion-item *ngFor="let p of productos">
+      <ion-item *ngFor="let p of carrito;index as i">
+         <ion-avatar slot="start" (click)="disminuirProducto(i)" style="cursor: pointer;">
+          <ion-label><ion-icon name="remove"></ion-icon></ion-label>
+        </ion-avatar>
         <ion-avatar slot="start">
-          <ion-label>{{p.cantidadMaxima}}</ion-label>
+          <ion-label>{{p.cantidad}}</ion-label>
         </ion-avatar>
         <ion-label>{{p.titulo}}<p>{{p.precio}}$</p></ion-label>
         <p>{{p.precio}}$</p>

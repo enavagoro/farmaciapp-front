@@ -25,6 +25,7 @@ export class InicioPage implements OnInit {
   banderaBarra = true;
   banderaPrincipal = true;
   productos = [];
+  carrito = [];
   producto = {"titulo":"","precio":0,"descripcion":"","cantidadMaxima":0,"cantidad":0,"estado":"","codigo":""};
   /* hardcodeo del weno */
 
@@ -52,12 +53,7 @@ export class InicioPage implements OnInit {
   }
 
   cambiarEstado(valor){
-    if(valor==0){
-      this.banderaPrincipal = !this.banderaPrincipal;
-    }
-    if(valor==1){
-      this.banderaBarra = !this.banderaBarra;
-    }
+    (valor == 0 ? this.banderaPrincipal = !this.banderaPrincipal : this.banderaBarra = !this.banderaBarra );
   }
 
   abrirDetalle(producto){
@@ -77,24 +73,26 @@ export class InicioPage implements OnInit {
     this.selector = {numeroMinimo: 999, numeroActual: 999, numeroMaximo: 990};
   }
 
-  sumarProducto(){
-    console.log('entré');
-
-    if(this.selector.numeroActual < this.selector.numeroMaximo)
-    {
-      console.log('pasé el if');
-      this.selector.numeroActual ++;
+  disminuirProducto(indice){
+    console.log(this.carrito);
+    console.log(indice);
+    this.carrito[indice]['cantidad'] --;
+    if(!this.carrito[indice]['cantidad']){
+      this.carrito.splice(indice,1);
     }
 
   }
 
+  sumarProducto(){
+    if(this.selector.numeroActual < this.selector.numeroMaximo)
+    {
+      this.selector.numeroActual ++;
+    }
+  }
+
   restarProducto(){
-    console.log('entré');
-    console.log('numeroActual',this.selector.numeroActual);
-    console.log('numeroMinimo',this.selector.numeroMinimo)
     if(this.selector.numeroActual > this.selector.numeroMinimo)
     {
-      console.log('pasé el if');
       this.selector.numeroActual --;
     }
   }
@@ -104,11 +102,27 @@ export class InicioPage implements OnInit {
     this.cambiarEstado(0);
     this.limpiarSelector();
   }
-
+  encontrarPorCodigo(codigo:string){
+    console.log(codigo);
+    var encontrados = this.carrito.filter(prod => { return prod.codigo ==  codigo});
+    return  encontrados;
+  }
 /* las funciones aún no están realizadas es mero testeo */
 
   agregarProducto(){
-    console.log('holo');
+    console.log(this.selector);
+    console.log(this.producto);
+    var previos = this.encontrarPorCodigo(this.producto.codigo);
+    if(previos.length){
+      previos[0].cantidad += this.selector.numeroActual;
+      // actualizar prod
+    }else{
+        let prod = {codigo:this.producto.codigo,precio : this.producto.precio , titulo : this.producto.titulo , cantidad : this.selector.numeroActual}
+        this.carrito.push(prod)
+    }
+    this.producto.cantidadMaxima - this.selector.numeroActual;
+    this.cambiarEstado(0);
+    console.log(this.carrito);
   }
 
 
