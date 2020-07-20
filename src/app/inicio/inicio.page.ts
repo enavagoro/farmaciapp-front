@@ -24,6 +24,7 @@ export class InicioPage implements OnInit {
 
   banderaBarra = true;
   banderaPrincipal = true;
+  banderaCalculadora = false;
   productos = [];
   producto = {"titulo":"","precio":0,"descripcion":"","cantidadMaxima":0,"cantidad":0,"estado":"","codigo":""};
   /* hardcodeo del weno */
@@ -60,6 +61,9 @@ export class InicioPage implements OnInit {
     }
   }
 
+  activarCalculadora(){
+    this.banderaCalculadora = !this.banderaCalculadora;
+  }
   abrirDetalle(producto){
     this.producto = producto;
     this.cambiarEstado(0);

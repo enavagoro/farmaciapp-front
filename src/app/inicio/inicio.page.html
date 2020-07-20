@@ -33,9 +33,7 @@
           </div>
         </div>
       </div>
-
-<!-- falta su div loco con padding, para empujar la lista de cards y que se vean todas cuando sea una cantidad elevada -->
-
+      <!-- falta su div loco con padding, para empujar la lista de cards y que se vean todas cuando sea una cantidad elevada -->
     </div>
 
     <div class="contenedor-principal" *ngIf="banderaPrincipal==false">
@@ -88,9 +86,11 @@
 
     <div class="contenedor-lateral" *ngIf="banderaBarra">
       <div class="celular">
-        <ion-button (click)="cambiarEstado(1);"><!-- (click)="cerrarModal()" -->
-          <ion-icon slot="icon-only" name="close"></ion-icon>
-        </ion-button>
+        <ion-buttons>
+          <ion-button (click)="cambiarEstado(1);"><!-- (click)="cerrarModal()" -->
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </div>
 <!-- esto debería ir con el detalle correcto, pd: los colores azules del lateral en modo telefono ignorar pls, es pa ver los tamaños -->
       <ion-item *ngFor="let p of productos">
@@ -109,8 +109,8 @@
           <ion-item>
             <ion-label>Descuento</ion-label>
             <ion-buttons>
-              <ion-button>
-                <ion-icon slot="icon-only" name="calculator"></ion-icon>
+              <ion-button (click)="activarCalculadora()">
+                 <ion-icon slot="icon-only"name="pricetags-outline"></ion-icon>
               </ion-button>
             </ion-buttons>
           </ion-item>
@@ -119,6 +119,79 @@
           </ion-item>
           <div class="contenedor-boton">
             <ion-button class="boton-pago">Generar Pago</ion-button>
+          </div>
+        </div>
+
+        <div class="calculadora" *ngIf="banderaCalculadora">
+          <div class="contenedor-boton">
+            <ion-buttons>
+              <ion-button (click)="activarCalculadora()"><!-- (click)="cerrarModal()" -->
+                <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </div>
+
+          <div class="card-total">
+            <h1 class="valor-total">10000</h1>
+          </div>
+
+          <div class="contenedor-botones-calculadora">
+            <div class="contenedor-boton-calculadora">
+              <ion-avatar>
+                <h1>7</h1>
+              </ion-avatar>
+              <ion-avatar>
+                <h1>8</h1>
+              </ion-avatar>
+              <ion-avatar>
+                <h1>9</h1>
+              </ion-avatar>
+              <ion-avatar class="boton-elemento">
+                <ion-icon class="icono-calculadora" name="backspace-outline"></ion-icon>
+              </ion-avatar>
+            </div>
+            <div class="contenedor-boton-calculadora">
+              <ion-avatar>
+                <h1>4</h1>
+              </ion-avatar>
+              <ion-avatar>
+                <h1>5</h1>
+              </ion-avatar>
+              <ion-avatar>
+                <h1>6</h1>
+              </ion-avatar>
+              <ion-avatar class="boton-elemento">
+                <h1>C</h1>
+              </ion-avatar>
+            </div>
+            <div class="contenedor-boton-calculadora">
+              <ion-avatar>
+                <h1>1</h1>
+              </ion-avatar>
+              <ion-avatar>
+                <h1>2</h1>
+              </ion-avatar>
+              <ion-avatar>
+                <h1>3</h1>
+              </ion-avatar>
+              <ion-avatar class="boton-elemento">
+                <ion-icon class="icono-calculadora" name="pricetag-outline"></ion-icon>
+              </ion-avatar>
+            </div>
+            <div class="contenedor-boton-calculadora">
+              <ion-avatar>
+                <h1>0</h1>
+              </ion-avatar>
+              <ion-avatar>
+                <h1>00</h1>
+              </ion-avatar>
+              <ion-avatar class="boton-elemento">
+                <h1>,</h1>
+              </ion-avatar>
+            </div>
+            <div class="contenedor-boton">
+              <ion-button class="boton-descuento">Aplicar descuento</ion-button>
+            </div>
           </div>
         </div>
     </div>
