@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Administración</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngFor="let item of listado;index as i ">
+
+    <ion-item (click)="selectedIndex = i" [routerLink]="[ item.url.split('/')[1] ]" lines="none" detail="false" >
+      <ion-icon slot="start" [ios]="item.icon + '-outline'" [md]="item.icon + '-sharp'"></ion-icon>
+      <ion-label class="label">{{ item.title }}</ion-label>
+    </ion-item>
+
+
+  </ion-list>
+
+</ion-content>

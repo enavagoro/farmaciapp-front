@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { UsuarioService } from './_servicios/usuario.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,17 +13,24 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
-  public appPages = [
+  subscription: Subscription;
+  public appPages = []/*[
     {
       title: 'Inicio',
       url: 'inicio',
       icon: 'barcode'
+    },{
+      title: 'Administrador',
+      url: 'admin',
+      icon: 'cog'
     }
-  ];
+  ]*/;
+
 
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
+    private usuarioService : UsuarioService,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
@@ -34,6 +43,16 @@ export class AppComponent implements OnInit {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    this.subscription = this.usuarioService.getMenu().subscribe(data => {
+      if (data) {
+        this.appPages.push(data.menu);
+      } else {
+        this.appPages = [];
+      }
+    });
+  }
+  public addPage(page){
+    this.appPages.push(page);
   }
 
   ngOnInit() {
@@ -41,5 +60,9 @@ export class AppComponent implements OnInit {
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+  }
+  ngOnDestroy() {
+        // matar suscripcion pa no dejar weas ocupando memoria
+        this.subscription.unsubscribe();
   }
 }
