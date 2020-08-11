@@ -14,10 +14,10 @@
         <ion-icon slot="icon-only" name="pricetag"></ion-icon>
       </ion-button>
       -->
-      <ion-button (click)="activarMenu();" *ngIf="banderaMenu==true"><!-- (click)="cerrarModal()" -->
+      <ion-button class="escritorio" (click)="activarMenu();" *ngIf="banderaMenu==true"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-deseleccionado" slot="icon-only" name="menu"></ion-icon>
       </ion-button>
-      <ion-button (click)="activarMenu();" *ngIf="banderaMenu==false"><!-- (click)="cerrarModal()" -->
+      <ion-button class="escritorio" (click)="activarMenu();" *ngIf="banderaMenu==false"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-seleccionado" slot="icon-only" name="menu"></ion-icon>
       </ion-button>
 
@@ -100,7 +100,7 @@
     <div class="contenedor-lateral" *ngIf="banderaBarra">
       <div class="celular">
         <ion-buttons>
-          <ion-button (click)="activarPagePrincipal();"><!-- (click)="cerrarModal()" -->
+          <ion-button (click)="activarCarrito();"><!-- (click)="cerrarModal()" -->
             <ion-icon slot="icon-only" name="close"></ion-icon>
           </ion-button>
         </ion-buttons>

@@ -370,9 +370,17 @@ ion-toolbar{
     display: none;
   }
 
+  .escritorio{
+    display: block;
+  }
+
 @media (max-width:900px){
   .celular{
     display: block;
+  }
+
+  .escritorio{
+    display: none;
   }
 
   .contenedor{

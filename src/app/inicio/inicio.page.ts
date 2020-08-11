@@ -39,7 +39,7 @@ export class InicioPage implements OnInit {
 
   // (para después de llamar el servicio) -> producto = {id:0,titulo:'',precio:0,descripcion:'',cantidadMaxima:0,estado:false,codigo:''};
 
-  banderaBarra = true;
+  banderaBarra = false;
   banderaPrincipal = true;
   banderaCalculadora = false;
   banderaMenu = true;
