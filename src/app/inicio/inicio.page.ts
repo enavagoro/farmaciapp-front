@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { ModalController ,ToastController, AlertController} from '@ionic/angular';
+
 
 @Component({
   selector: 'app-inicio',
@@ -7,7 +8,23 @@ import { ModalController ,ToastController, AlertController} from '@ionic/angular
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
+  @ViewChild('buscarInput',{static:false}) buscarInput;
 
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+
+    console.log("aprete una tecliña",event);
+    let asciiMenor = 32;
+    let asciiMayor = 126;
+    let valorEscape = 27;
+
+    if(event.keyCode > asciiMenor && event.keyCode < asciiMayor){
+    /*  this.buscar += event.key; */
+      this.buscarInput.setFocus();
+      (this.buscar ? this.productos = this.arregloLlegada.filter( producto => this.filtrarProductos(producto,this.buscar)) : this.productos= this.arregloLlegada)
+    }
+
+  }
+  buscar : string = undefined;
   /* Producto
     {
       id: String,
@@ -25,6 +42,8 @@ export class InicioPage implements OnInit {
   banderaBarra = true;
   banderaPrincipal = true;
   banderaCalculadora = false;
+  banderaMenu = true;
+
   productos = [];
   carrito = [];
   producto = {"titulo":"","precio":0,"descripcion":"","cantidadMaxima":0,"cantidad":0,"estado":"","codigo":""};
@@ -40,6 +59,11 @@ export class InicioPage implements OnInit {
 
   selector = {numeroMinimo: 999, numeroActual: 999, numeroMaximo: 990};
 
+  botones = [1,2,3,4,5,7];
+
+  banderaGrande : boolean = false;
+  menu = document.querySelector('ion-menu');
+
   constructor(private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
@@ -47,22 +71,31 @@ export class InicioPage implements OnInit {
   }
 
   ngOnInit() {
-    /* lol */
-
+    this.activarMenu();
     this.productos = this.arregloLlegada;
     console.log(this.productos);
   }
 
-  cambiarEstado(valor){
-    (valor == 0 ? this.banderaPrincipal = !this.banderaPrincipal : this.banderaBarra = !this.banderaBarra );
+  activarCarrito(){
+    this.banderaBarra = !this.banderaBarra;
   }
 
   activarCalculadora(){
     this.banderaCalculadora = !this.banderaCalculadora;
   }
+
+  activarPagePrincipal(){
+    this.banderaPrincipal = !this.banderaPrincipal;
+  }
+
+  activarMenu(){
+    this.banderaMenu = !this.banderaMenu;
+    this.menu.hidden = this.banderaMenu;
+  }
+
   abrirDetalle(producto){
     this.producto = producto;
-    this.cambiarEstado(0);
+    this.activarPagePrincipal();
     this.iniciarSelector();
   }
 
@@ -84,7 +117,6 @@ export class InicioPage implements OnInit {
     if(!this.carrito[indice]['cantidad']){
       this.carrito.splice(indice,1);
     }
-
   }
 
   sumarProducto(){
@@ -103,9 +135,10 @@ export class InicioPage implements OnInit {
 
   cerrarDetalle(){
     this.producto = {"titulo":"","precio":0,"descripcion":"","cantidadMaxima":0,"cantidad":0,"estado":"","codigo":""};
-    this.cambiarEstado(0);
+    this.activarPagePrincipal();
     this.limpiarSelector();
   }
+
   encontrarPorCodigo(codigo:string){
     console.log(codigo);
     var encontrados = this.carrito.filter(prod => { return prod.codigo ==  codigo});
@@ -125,11 +158,11 @@ export class InicioPage implements OnInit {
         this.carrito.push(prod)
     }
     this.producto.cantidadMaxima - this.selector.numeroActual;
-    this.cambiarEstado(0);
+    this.activarPagePrincipal();
     console.log(this.carrito);
   }
 
-
+/*
   async confirmarAgregar(){
 
     const alert = await this.alertController.create({
@@ -154,4 +187,18 @@ export class InicioPage implements OnInit {
 
     await alert.present();
   }
+  */
+
+  /* estilos barra */
+  cambiarBarra(){
+    this.banderaGrande = !this.banderaGrande;
+  }
+
+  filtrarProductos(producto,valorInput){
+    console.log(producto);
+    console.log(valorInput);
+    if(!valorInput){return true};
+    return producto.titulo.includes(valorInput);
+  }
+
 }

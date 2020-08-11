@@ -6,6 +6,20 @@ ion-toolbar{
   --background: #c9ccf0;
 }
 
+/* barra-buscar */
+
+.barra-buscar{
+  background: white;
+  width: 10%;
+  margin-left: 2%;
+  border-radius: 9px;
+  color: #252526;
+}
+
+.barraLarga{
+  width: 40%;
+}
+
 .icono-seleccionado{
   color: white;
 }
@@ -365,8 +379,16 @@ ion-toolbar{
     display: absolute;
   }
 
-  /* producto */
+  /* barra-buscar */
 
+  .barra-buscar{
+    background: white;
+    margin-left: 5%;
+    width: 60%;
+    border-radius: 9px;
+    color: #252526;
+  }
+  /* producto */
 
   .selector{
     display: flex;

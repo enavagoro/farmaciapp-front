@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <div id="barra" class="barra-buscar" [ngClass]="{'barraLarga': banderaGrande}">
+      <ion-input  #buscarInput placeholder="Buscar" [(ngModel)]="buscar" (ionFocus)="cambiarBarra();" (ionBlur)="cambiarBarra();"></ion-input>
+    </div>
     <ion-buttons slot="start">
       <ion-buttons slot="start">
         <ion-menu-button style="--color:white;"></ion-menu-button>
@@ -11,10 +14,17 @@
         <ion-icon slot="icon-only" name="pricetag"></ion-icon>
       </ion-button>
       -->
-      <ion-button (click)="cambiarEstado(1);" *ngIf="banderaBarra==true"><!-- (click)="cerrarModal()" -->
+      <ion-button (click)="activarMenu();" *ngIf="banderaMenu==true"><!-- (click)="cerrarModal()" -->
+        <ion-icon class="icono-deseleccionado" slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+      <ion-button (click)="activarMenu();" *ngIf="banderaMenu==false"><!-- (click)="cerrarModal()" -->
+        <ion-icon class="icono-seleccionado" slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="activarCarrito();" *ngIf="banderaBarra==true"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-seleccionado" slot="icon-only" name="receipt"></ion-icon>
       </ion-button>
-      <ion-button (click)="cambiarEstado(1);" *ngIf="banderaBarra==false"><!-- (click)="cerrarModal()" -->
+      <ion-button (click)="activarCarrito();" *ngIf="banderaBarra==false"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-deseleccionado" slot="icon-only" name="receipt"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -72,12 +82,8 @@
             </ion-button>
           </ion-buttons>
 
-
           <ion-label class="numero-actual" (click)="verInput = true" *ngIf="!verInput">{{selector.numeroActual}}</ion-label>
           <ion-label class="numero-actual" *ngIf="verInput"><ion-input [(ngModel)]="selector.numeroActual"></ion-input></ion-label>
-
-
-
 
           <ion-buttons>
             <ion-button class="boton-derecho" (click)="sumarProducto()">
@@ -87,14 +93,14 @@
       </div>
 
       <div class="contenedor-boton-producto">
-        <ion-button class="boton-agregar" (click)="confirmarAgregar()" [disabled]="selector.numeroActual==0">Agregar Producto</ion-button>
+        <ion-button class="boton-agregar" (click)="agregarProducto()" [disabled]="selector.numeroActual==0">Agregar Producto</ion-button>
       </div>
     </div>
 
     <div class="contenedor-lateral" *ngIf="banderaBarra">
       <div class="celular">
         <ion-buttons>
-          <ion-button (click)="cambiarEstado(1);"><!-- (click)="cerrarModal()" -->
+          <ion-button (click)="activarPagePrincipal();"><!-- (click)="cerrarModal()" -->
             <ion-icon slot="icon-only" name="close"></ion-icon>
           </ion-button>
         </ion-buttons>
