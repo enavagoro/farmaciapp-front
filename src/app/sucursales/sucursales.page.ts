@@ -3,6 +3,7 @@ import { ModalController ,PickerController ,PopoverController ,ToastController,A
 import { UsuarioService } from '../_servicios/usuario.service';
 //import { DetalleSucursalPage } from './detalle/detalle.page';//
 import { SucursalService } from '../_servicios/sucursales.service';
+import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
@@ -15,25 +16,24 @@ export class SucursalesPage implements OnInit {
   sucursales = [];
   banderas = [];
   usuarios = [];
-  constructor(private storage : Storage,private sucursalService :SucursalService,private usuarioService:UsuarioService,private modalController: ModalController,public router: Router) {
+  constructor(private login : LoginService,private storage : Storage,private sucursalService :SucursalService,private usuarioService:UsuarioService,private modalController: ModalController,public router: Router) {
 
   }
 
   ngAfterViewInit(){
-    this.storage.get('usuarios').then((val) => {
-      this.sucursalService.listar().then(sucursales=>{
-        sucursales.subscribe(s=>{
-            this.sucursales = s;
-            console.log(this.sucursales);
-        })
-      })
-    })
     console.log("visible?");
     var menu = document.querySelector('ion-menu');
     menu.hidden = true;
   }
 
   ngOnInit() {
+    this.login.getFirstTimeEmpresa().then(val=>{
+      console.log(val);
+      this.sucursalService.listar().subscribe(s=>{
+        this.sucursales = s;
+        console.log(this.sucursales);
+      })
+    })
 
   }
 

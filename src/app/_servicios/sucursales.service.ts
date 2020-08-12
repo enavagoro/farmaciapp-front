@@ -11,13 +11,8 @@ export class SucursalService {
   private datosCargados : boolean = false;
   constructor(private login:LoginService,private http:HttpClient) { }
 
-  async listar() {
+ listar() {
 
-    if(!this.datosCargados){
-      var token = await this.login.getFirstTimeEmpresa();
-      this.datosCargados = true;
-    }
-    
     return this.http.get<any[]>(`${this.url}/sucursal/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

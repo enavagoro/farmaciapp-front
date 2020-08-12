@@ -31,11 +31,16 @@ export class LoginService {
     return this.empresa;
   }
   async getFirstTimeEmpresa(){
-    this.storage.get('usuarios').then((val) => {
-      this.setEmpresa(val['empresa']);
-      this.setToken(val['token']);
-      return val.empresa;
-    })
+    console.log("en first time");
+    return new Promise(resolve => {
+      this.storage.get('usuarios').then((val) => {
+        this.setEmpresa(val['empresa']);
+        this.setToken(val['token']);
+        console.log("Respuesta firs time",val);
+        resolve(val.empresa);      
+      })
+    });
+
   }
   public setEmpresa(em){
     this.empresa = em;
