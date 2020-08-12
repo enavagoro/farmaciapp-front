@@ -66,9 +66,7 @@ import { AlertController } from '@ionic/angular';
                   usuario.token = d['accessToken'];
                   this.loginService.setUser(usuario);
                   this.loginService.setEmpresa(usuario.empresa);
-                  this.router.navigate(['/inicio']);
-                  var menu = document.querySelector('ion-menu')
-                  menu.hidden = false;
+                  this.router.navigate(['/sucursales']);
                 }
               })
             })

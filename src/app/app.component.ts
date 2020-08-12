@@ -24,7 +24,8 @@ export class AppComponent implements OnInit {
       title: 'Inicio',
       url: 'inicio',
       icon: 'barcode'
-    }
+    },
+
   ];
 
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];

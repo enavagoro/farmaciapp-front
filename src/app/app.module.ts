@@ -18,6 +18,8 @@ import { EmpresaService } from './_servicios/empresa.service';
 import { UsuarioService } from './_servicios/usuario.service';
 //import { AppUtilService } from './_servicios/app-util.service';
 import { StorageService } from './_servicios/storage.service';
+import { SucursalService } from './_servicios/sucursales.service';
+import { StockService } from './_servicios/stock.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +43,8 @@ import { StorageService } from './_servicios/storage.service';
     EmpresaService,
     UsuarioService,
     StorageService,
+    SucursalService,
+    StockService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

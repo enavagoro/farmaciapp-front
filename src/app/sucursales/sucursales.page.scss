@@ -1,0 +1,50 @@
+ion-content {
+    --overflow: hidden;
+}
+
+ion-toolbar{
+  --background: #c9ccf0;
+  --color: white;
+}
+
+.imagen-sucursal{
+  width: 200px;
+}
+
+.contenedor-mitades{
+  display: flex;
+}
+
+.parte-izquierda{
+  width: 60%;
+}
+
+ion-avatar{
+  --border-radius: none;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+ion-item{
+  width: 90%;
+}
+
+.parte-derecha{
+  width: 40%;
+  background: #f5f5f5;
+
+  ion-label{
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 2%;
+  }
+}
+
+.contenedor-imagen{
+  width: 50%;
+  margin-top: 10%;
+  margin-left: 25%;
+  border-radius: 200px;
+  background: white;
+}
