@@ -74,4 +74,10 @@ export class AppComponent implements OnInit {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
   }
+
+  cerrarInicio(){
+    var menu = document.querySelector('ion-menu');
+    menu.hidden = true;
+    this.router.navigate(['/sucursales'], {replaceUrl: true});
+  }
 }

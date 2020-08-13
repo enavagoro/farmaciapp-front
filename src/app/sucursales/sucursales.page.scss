@@ -7,16 +7,42 @@ ion-toolbar{
   --color: white;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  margin-top: 2% !important;
+  margin-right: 2%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .imagen-sucursal{
   width: 200px;
 }
 
 .contenedor-mitades{
+  width: 100%;
   display: flex;
 }
 
 .parte-izquierda{
   width: 60%;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 ion-avatar{
@@ -29,9 +55,19 @@ ion-item{
   width: 90%;
 }
 
+.separador-final{
+  height: 10%;
+}
+
+.item-sucursal{
+  cursor: pointer;
+}
+
 .parte-derecha{
   width: 40%;
+  height: 100vh;
   background: #f5f5f5;
+  overflow-y: auto;
 
   ion-label{
     width: 100%;
@@ -41,10 +77,121 @@ ion-item{
   }
 }
 
+.contenedor-titulos{
+  width: 70%;
+  margin-left: 15%;
+}
+
+.titulo-texto{
+  text-align: center;
+  font-size: 23px;
+}
+
+.subtitulo-texto{
+  text-align: center;
+  font-size: 17px;
+}
+
 .contenedor-imagen{
   width: 50%;
   margin-top: 10%;
   margin-left: 25%;
   border-radius: 200px;
-  background: white;
+}
+
+.contenedor-boton{
+
+}
+
+.boton-ingreso{
+  --background: #c9ccf0;
+  --background-activated:#c9ccf0;
+  --background-focused:#c9ccf0;
+  --background-hover:#c9ccf0;
+  width: 50% !important;
+  margin-left: 25% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+@keyframes subir{
+  from{
+    transform: translateY(100%);
+  }
+  to{
+    transform: translateY(0%);
+  }
+}
+
+.celular{
+  display: none;
+}
+
+.escritorio{
+
+}
+
+@media (max-width:900px){
+  .celular{
+    display: flex;
+  }
+
+  .escritorio{
+    display: none;
+  }
+
+  .contenedor-mitades{
+    display: block;
+  }
+
+  .parte-izquierda{
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  /* parte derecha */
+
+  .parte-derecha{
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100% !important; /* Full width */
+    height: 100% !important; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    z-index: 999 !important;
+    background: white;
+    animation: subir 0s ease-in;
+  }
+
+  .contenedor-imagen{
+    width: 60%;
+    margin-top: 10%;
+    margin-left: 20%;
+    border-radius: 200px;
+    background: white;
+  }
+
+  .boton-ingreso{
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-top: 5%;
+    margin-bottom: 2%;
+  }
+
+
+  @keyframes subir{
+    from{
+      transform: translateY(100%);
+    }
+    to{
+      transform: translateY(0%);
+    }
+  }
+
 }

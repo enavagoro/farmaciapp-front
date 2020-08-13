@@ -16,6 +16,9 @@ export class SucursalesPage implements OnInit {
   sucursales = [];
   banderas = [];
   usuarios = [];
+  sucursal = {codigo:'',empresa:'',encargado:'',titulo:''};
+  banderaSucursal = false;
+
   constructor(private login : LoginService,private storage : Storage,private sucursalService :SucursalService,private usuarioService:UsuarioService,private modalController: ModalController,public router: Router) {
 
   }
@@ -34,15 +37,37 @@ export class SucursalesPage implements OnInit {
         console.log(this.sucursales);
       })
     })
-
   }
 
-  abrirSucursal(sucursal){
-    console.log(sucursal);
+  seleccionarSucursal(sucursal){
+      this.banderaSucursal = true;
+      this.sucursal = sucursal;
+      console.log(this.sucursal);
+      console.log(this.sucursal.titulo);
+    /*
     this.storage.set('sucursal',sucursal);
     this.router.navigate(['/inicio']);
-
+    */
   }
 
+  cerrarSucursal(){
+    this.banderaSucursal = false;
+    this.sucursal = {codigo:'',empresa:'',encargado:'',titulo:''};
+  }
+
+  abrirSucursal(){
+    this.storage.set('sucursal',this.sucursal);
+    this.sucursal = {codigo:'',empresa:'',encargado:'',titulo:''};
+    this.banderaSucursal = false;
+    this.router.navigate(['/inicio']);
+  }
+
+  cerrarSesion(){
+    console.log("cerrar sesion");
+    var menu = document.querySelector('ion-menu');
+    menu.hidden = true;
+    this.storage.clear();
+    this.router.navigate(['/login'], {replaceUrl: true});
+  }
 
 }
