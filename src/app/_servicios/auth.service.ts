@@ -13,7 +13,7 @@ interface auth {
 
 export class AuthService {
 
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://api.vase.cl";
 
   constructor(private http: HttpClient, private login : LoginService) { }
 

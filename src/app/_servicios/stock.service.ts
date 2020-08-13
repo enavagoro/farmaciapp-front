@@ -7,7 +7,7 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class StockService {
-  private url: string = "http://178.128.71.20:8120";
+  private url: string = "https://api.vase.cl";
   constructor(private login:LoginService,private http:HttpClient) {
   }
   listar() {

@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { ModalController ,ToastController, AlertController} from '@ionic/angular';
-
+import { Storage } from '@ionic/storage';
+import { ProductoService } from '../_servicios/producto.service';
+import { StockService } from '../_servicios/stock.service';
 
 @Component({
   selector: 'app-inicio',
@@ -17,11 +19,13 @@ export class InicioPage implements OnInit {
     let asciiMayor = 126;
     let valorEscape = 27;
 
+    /*
     if(event.keyCode > asciiMenor && event.keyCode < asciiMayor){
-    /*  this.buscar += event.key; */
+
       this.buscarInput.setFocus();
       (this.buscar ? this.productos = this.arregloLlegada.filter( producto => this.filtrarProductos(producto,this.buscar)) : this.productos= this.arregloLlegada)
     }
+    */
 
   }
   buscar : string = undefined;
@@ -46,7 +50,9 @@ export class InicioPage implements OnInit {
 
   productos = [];
   carrito = [];
-  producto = {"titulo":"","precio":0,"descripcion":"","cantidadMaxima":0,"cantidad":0,"estado":"","codigo":""};
+  //producto = {"titulo":"","venta":0,"descripcion":"","cantidadMaxima":0,"cantidad":0,"estado":"","codigo":""};
+  producto = {"cantidad":0,"categorias":[],"codigo":"","costo:":0,"id":"","empresa":"","estado":"","titulo":"","venta":0,"sucursal":""};
+  productosFiltrados = [];
   /* hardcodeo del weno */
 
   arregloLlegada = [{"titulo":"Peineta","precio":1000,"descripcion":"peinetas baratas","cantidadMaxima":23,"estado":"true","codigo":"A-1"},
@@ -57,23 +63,44 @@ export class InicioPage implements OnInit {
 
   productosAgregados = [];
 
-  selector = {numeroMinimo: 999, numeroActual: 999, numeroMaximo: 990};
+  selector = {numeroMinimo: 999, numeroActual: 999, numeroMaximo: 999};
 
   botones = [1,2,3,4,5,7];
 
   banderaGrande : boolean = false;
   menu = document.querySelector('ion-menu');
 
+  sucursal = {codigo:'',empresa:'',encargado:'',titulo:''};
+
   constructor(private toastController : ToastController,
               private alertController :AlertController,
-              private modalCtrl : ModalController) {
+              private modalCtrl : ModalController,
+              private storage : Storage,
+              private productoService : ProductoService,
+              private stockService : StockService) {
 
   }
 
   ngOnInit() {
     this.activarMenu();
-    this.productos = this.arregloLlegada;
-    console.log(this.productos);
+    this.storage.get('sucursal').then((val) => {
+      console.log('val',val);
+
+      this.stockService.listarPorSucursal(val.id).subscribe(ps=>{
+        console.log('listar por sucursal', ps);
+        this.productos = ps;
+        console.log(this.productos);
+      })
+    })
+
+    /*
+    this.productoService.listar().then(servicio=>{
+      servicio.subscribe(p=>{
+          this.productos = p;
+          console.log('productos service ',this.productos);
+      })
+    })
+    */
   }
 
   activarCarrito(){
@@ -100,7 +127,7 @@ export class InicioPage implements OnInit {
   }
 
   iniciarSelector(){
-    this.selector.numeroMaximo = this.producto.cantidadMaxima;
+    this.selector.numeroMaximo = this.producto.cantidad;
     this.selector.numeroActual = 0;
     this.selector.numeroMinimo = 0;
   }
@@ -132,9 +159,9 @@ export class InicioPage implements OnInit {
       this.selector.numeroActual --;
     }
   }
-
+/* hola */
   cerrarDetalle(){
-    this.producto = {"titulo":"","precio":0,"descripcion":"","cantidadMaxima":0,"cantidad":0,"estado":"","codigo":""};
+    this.producto = {"cantidad":0,"categorias":[],"codigo":"","costo:":0,"id":"","empresa":"","estado":"","titulo":"","venta":0,"sucursal":""};
     this.activarPagePrincipal();
     this.limpiarSelector();
   }
@@ -154,10 +181,10 @@ export class InicioPage implements OnInit {
       previos[0].cantidad += this.selector.numeroActual;
       // actualizar prod
     }else{
-        let prod = {codigo:this.producto.codigo,precio : this.producto.precio , titulo : this.producto.titulo , cantidad : this.selector.numeroActual}
+        let prod = {codigo:this.producto.codigo,venta : this.producto.venta , titulo : this.producto.titulo , cantidad : this.selector.numeroActual}
         this.carrito.push(prod)
     }
-    this.producto.cantidadMaxima - this.selector.numeroActual;
+    this.producto.cantidad - this.selector.numeroActual;
     this.activarPagePrincipal();
     console.log(this.carrito);
   }

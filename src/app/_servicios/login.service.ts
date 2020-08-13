@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginService {
 
   private token : string = "";
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://api.vase.cl";
   private empresa : string = "";
   constructor(private router:Router,private storage : Storage,private http:HttpClient) {
     this.storage.get('usuarios').then((val) => {
@@ -37,7 +37,7 @@ export class LoginService {
         this.setEmpresa(val['empresa']);
         this.setToken(val['token']);
         console.log("Respuesta firs time",val);
-        resolve(val.empresa);      
+        resolve(val.empresa);
       })
     });
 

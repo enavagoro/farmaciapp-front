@@ -39,7 +39,7 @@
           <div class="card" (click)="abrirDetalle(p);">
             <h1 style="color:#fa949d">{{p.titulo}}</h1>
             <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
-            <h1 style="color:#fa949d">{{p.precio}}</h1>
+            <h1 style="color:#fa949d">{{p.venta}}</h1>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
 
       <div class="contenedor-textos-titulos">
         <h1 class="titulo-producto">{{producto.titulo}}</h1>
-        <h1 class="precio-producto">${{producto.precio}}</h1>
+        <h1 class="precio-producto">${{producto.venta}}</h1>
       </div>
       <div class="contenedor-textos-titulos">
         <p class="codigo-producto">Codigo: {{producto.codigo}}</p>
@@ -73,7 +73,7 @@
       </div>
       <p class="descripcion-producto">Descripción:<br><br>{{producto.descripcion}}</p>
 
-      <p class="descripcion-cantidad">Cantidad<br><br>{{producto.cantidadMaxima}} unidades disponibles</p>
+      <p class="descripcion-cantidad">Cantidad<br><br>{{producto.cantidad}} unidades disponibles</p>
 
       <div class="selector">
           <ion-buttons>
@@ -113,8 +113,8 @@
         <ion-avatar slot="start">
           <ion-label>{{p.cantidad}}</ion-label>
         </ion-avatar>
-        <ion-label>{{p.titulo}}<p>{{p.precio}}$</p></ion-label>
-        <p>{{p.precio}}$</p>
+        <ion-label>{{p.titulo}}<p>{{p.venta}}$</p></ion-label>
+        <p>{{p.venta}}$</p>
       </ion-item>
 
       <ion-item lines="none" class="item-final">

@@ -19,7 +19,7 @@ export class SucursalesPage implements OnInit {
   sucursal = {codigo:'',empresa:'',encargado:'',titulo:''};
   banderaSucursal = false;
 
-  constructor(private login : LoginService,private storage : Storage,private sucursalService :SucursalService,private usuarioService:UsuarioService,private modalController: ModalController,public router: Router) {
+  constructor( private login : LoginService, private storage : Storage,private sucursalService :SucursalService,private usuarioService:UsuarioService,private modalController: ModalController,public router: Router) {
 
   }
 

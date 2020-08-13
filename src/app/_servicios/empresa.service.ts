@@ -20,7 +20,7 @@ export interface Empresa{
 
 export class EmpresaService {
 
-  public url: string = "http://201.239.13.125";
+  public url: string = "https://api.vase.cl";
   constructor(private login:LoginService,private http:HttpClient) {
 
   }

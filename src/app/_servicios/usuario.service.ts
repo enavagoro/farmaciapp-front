@@ -16,7 +16,7 @@ export interface Usuario{
 
 export class UsuarioService {
 
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://api.vase.cl";
   idEmpresa = '';
   idUsuario = '';
   constructor(private login:LoginService,private http: HttpClient) {
@@ -24,7 +24,7 @@ export class UsuarioService {
   }
 
   async listar() {
-    
+
     this.url = "https://api.vase.cl";
     return this.http.get<Usuario[]>(`${this.url}/users/`,{
       headers: new HttpHeaders()
@@ -35,7 +35,7 @@ export class UsuarioService {
   }
 
   async insertar(cliente : Usuario){
-    
+
     this.url = "https://api.vase.cl";
     return this.http.post<Usuario>(`${this.url}/users/`,cliente, {
       headers: new HttpHeaders()
