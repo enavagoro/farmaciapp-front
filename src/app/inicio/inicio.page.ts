@@ -144,6 +144,7 @@ export class InicioPage implements OnInit {
     if(!this.carrito[indice]['cantidad']){
       this.carrito.splice(indice,1);
     }
+    this.carrito[indice]['total'] = ((this.carrito[indice]['cantidad']) * (this.carrito[indice]['venta']));
   }
 
   sumarProducto(){
@@ -159,7 +160,7 @@ export class InicioPage implements OnInit {
       this.selector.numeroActual --;
     }
   }
-/* hola */
+
   cerrarDetalle(){
     this.producto = {"cantidad":0,"categorias":[],"codigo":"","costo:":0,"id":"","empresa":"","estado":"","titulo":"","venta":0,"sucursal":""};
     this.activarPagePrincipal();
@@ -177,11 +178,14 @@ export class InicioPage implements OnInit {
     console.log(this.selector);
     console.log(this.producto);
     var previos = this.encontrarPorCodigo(this.producto.codigo);
+
     if(previos.length){
       previos[0].cantidad += this.selector.numeroActual;
       // actualizar prod
     }else{
-        let prod = {codigo:this.producto.codigo,venta : this.producto.venta , titulo : this.producto.titulo , cantidad : this.selector.numeroActual}
+        let valorTotal = (this.selector.numeroActual * this.producto.venta);
+        console.log(valorTotal);
+        let prod = {codigo:this.producto.codigo,venta : this.producto.venta , titulo : this.producto.titulo , cantidad : this.selector.numeroActual, total : valorTotal}
         this.carrito.push(prod)
     }
     this.producto.cantidad - this.selector.numeroActual;
