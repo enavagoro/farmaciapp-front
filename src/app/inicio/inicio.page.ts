@@ -174,6 +174,10 @@ export class InicioPage implements OnInit {
 
     if(previos.length){
       previos[0].cantidad += this.selector.numeroActual;
+      if(previos[0].cantidad >= this.selector['numeroMaximo']){
+        alert("loco ya basta de agregar mas weas");
+        previos[0].cantidad = this.selector['numeroMaximo'];
+      }
       // actualizar prod
     }else{
         let valorTotal = (this.selector.numeroActual * this.producto.venta);

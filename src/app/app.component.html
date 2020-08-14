@@ -22,7 +22,7 @@
           </ion-item>
         </ion-list>
 
-        <ion-item class="item-menu" (click)="cerrarInicio()" lines="none">
+        <ion-item class="item-menu" routerDirection="root" [routerLink]="'sucursales'" (click)="cerrarInicio()"  lines="none">
           <ion-icon class="icono-apagar" slot="start" name="cube"></ion-icon>
           <ion-label class="cerrar-sesion">Volver a Sucursales</ion-label>
         </ion-item>
