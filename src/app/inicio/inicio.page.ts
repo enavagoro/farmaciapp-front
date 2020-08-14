@@ -19,13 +19,12 @@ export class InicioPage implements OnInit {
     let asciiMayor = 126;
     let valorEscape = 27;
 
-    /*
+
     if(event.keyCode > asciiMenor && event.keyCode < asciiMayor){
 
       this.buscarInput.setFocus();
-      (this.buscar ? this.productos = this.arregloLlegada.filter( producto => this.filtrarProductos(producto,this.buscar)) : this.productos= this.arregloLlegada)
+      (this.buscar ? this.productos = this.productos.filter( producto => this.filtrarProductos(producto,this.buscar)) : this.productos = this.productos)
     }
-    */
 
   }
   buscar : string = undefined;
@@ -54,12 +53,6 @@ export class InicioPage implements OnInit {
   producto = {"cantidad":0,"categorias":[],"codigo":"","costo:":0,"id":"","empresa":"","estado":"","titulo":"","venta":0,"sucursal":""};
   productosFiltrados = [];
   /* hardcodeo del weno */
-
-  arregloLlegada = [{"titulo":"Peineta","precio":1000,"descripcion":"peinetas baratas","cantidadMaxima":23,"estado":"true","codigo":"A-1"},
-                    {"titulo":"Pastillas","precio":3000,"descripcion":"pastillas buenas","cantidadMaxima":15,"estado":"true","codigo":"B-2"},
-                    {"titulo":"Manzanas","precio":2000,"descripcion":"manzanas baratas","cantidadMaxima":10,"estado":"true","codigo":"C-3"},
-                    {"titulo":"Morral","precio":1500,"descripcion":"morral de lana","cantidadMaxima":9,"estado":"true","codigo":"D-4"}
-                    ];
 
   productosAgregados = [];
 
