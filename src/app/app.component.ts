@@ -78,6 +78,9 @@ export class AppComponent implements OnInit {
   cerrarInicio(){
     var menu = document.querySelector('ion-menu');
     menu.hidden = true;
-    this.router.navigate(['/sucursales'], {replaceUrl: true});
+    menu.toggle();
+    //console.log("quise cerrarlo");
+
+    //this.router.navigate(['/sucursales'], {replaceUrl: true});
   }
 }
