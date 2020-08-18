@@ -15,15 +15,9 @@
 <ion-content>
   <div class="contenedor-mitades">
     <div class="parte-izquierda">
-      <ion-item class="item-sucursal">
-        <ion-avatar>
-          <img class="imagen-sucursal" src="https://image.flaticon.com/icons/svg/983/983952.svg">
-        </ion-avatar>
-        <ion-label class="texto-lista">Agregar nueva sucursal</ion-label>
-      </ion-item>
       <ion-item class="item-sucursal" *ngFor = "let s of sucursales" (click)="seleccionarSucursal(s);">
         <ion-avatar>
-          <img class="imagen-sucursal" src="https://image.flaticon.com/icons/svg/3306/3306362.svg">
+          <img class="imagen-sucursal" src="https://image.flaticon.com/icons/svg/770/770080.svg">
         </ion-avatar>
         <ion-label>
           <h2>{{s.titulo}}</h2>

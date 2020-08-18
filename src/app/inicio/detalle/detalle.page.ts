@@ -156,4 +156,7 @@ export class DetallePage implements OnInit {
       console.log('este es el cliente',this.cliente);
     }
 
+    cerrarModal(){
+      this.modalCtrl.dismiss();
+    }
 }

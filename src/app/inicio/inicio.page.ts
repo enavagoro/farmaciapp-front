@@ -176,7 +176,7 @@ export class InicioPage implements OnInit {
   }
 
   aumentarProducto(indice){
-    console.log("Carrito: ",this.carrito[indice])
+
   }
 
   quitarProducto(indice){
