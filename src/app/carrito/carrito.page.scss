@@ -1,0 +1,155 @@
+/* lado derecho */
+
+  .contenedor-lateral{
+    width: 100%;
+    height: 100vh;
+    background: white; //ojo aqui
+    position: relative;
+    overflow-y: auto;
+  }
+
+  ion-avatar{
+    background: #c9ccf0;
+    text-align: center;
+
+    ion-label{
+      margin-top: 30%;
+    }
+  }
+
+  .item-final{
+    padding-bottom: 30vh;
+  }
+
+  .contenedor-footer{
+    position: relative;
+    width: 100%;
+  }
+
+  .footer{
+    width: 38% !important;
+    background: white; //ojo aqui
+    position: fixed !important;
+    z-index: 2 !important;
+    height: 30%;
+    top: 70%;
+  }
+
+  .badge-indicador{
+    --background: #c9ccf0;
+    margin-left: 3%;
+    padding: 1%;
+  }
+
+  .boton-producto{
+    width: 35px;
+    height: 35px;
+    background: #ffd3dc;
+  }
+
+  .contenedor-boton{
+    width: 100%;
+  }
+
+  .boton-pago{
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-top: 1%;
+    margin-bottom: 0%;
+  }
+
+  .boton-descuento{
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 45% !important;
+    margin-left: 8% !important;
+    margin-top: 5%;
+    margin-bottom: 2%;
+  }
+
+  @keyframes subir{
+    from{
+      transform: translateY(100%);
+    }
+    to{
+      transform: translateY(0%);
+    }
+  }
+
+
+@media (max-width:900px){
+  /* parte derecha */
+
+  .contenedor-lateral{
+     position: fixed; /* Stay in place */
+     z-index: 1; /* Sit on top */
+     left: 0;
+     top: 0;
+     width: 100% !important; /* Full width */
+     height: 100% !important; /* Full height */
+     overflow: auto; /* Enable scroll if needed */
+     z-index: 999 !important;
+     background: white;
+     animation: subir 0s ease-in;
+  }
+
+  .item-final{
+    padding-bottom: 30vh;
+  }
+
+  .contenedor-footer{
+    position: relative;
+    width: 100%;
+  }
+
+  .footer{
+    width: 100% !important;
+    background: white; //ojo aqui
+    position: fixed !important;
+    z-index: 2 !important;
+    height: 30%;
+    top:70%;
+  }
+
+  .contenedor-boton{
+    width: 100%;
+  }
+
+  .boton-pago{
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-top: 5%;
+    margin-bottom: 2%;
+  }
+
+  .boton-descuento{
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 80% !important;
+    margin-top: 15%;
+    margin-left: 10% !important;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+
+  @keyframes subir{
+    from{
+      transform: translateY(100%);
+    }
+    to{
+      transform: translateY(0%);
+    }
+  }
+}

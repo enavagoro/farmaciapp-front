@@ -110,6 +110,9 @@ ion-toolbar{
   }
 
 /* Producto */
+app-carrito{
+  width: 60%;
+}
 
 .contenedor-textos-titulos{
   width: 100%;
@@ -221,13 +224,6 @@ ion-toolbar{
 
 /* lado derecho */
 
-  .contenedor-lateral{
-    width: 60%;
-    height: 100vh;
-    background: white; //ojo aqui
-    position: relative;
-    overflow-y: auto;
-  }
 
   ion-avatar{
     background: #c9ccf0;

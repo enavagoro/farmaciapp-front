@@ -10,7 +10,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 
+//
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 //services
+import { CarritoService } from './_servicios/carrito.service';
 import { ValidationService } from './_servicios/validation.service';
 import { AuthService } from './_servicios/auth.service';
 import { LoginService } from './_servicios/login.service';
@@ -24,7 +28,7 @@ import { VentaService } from './_servicios/venta.service';
 import { ClienteService } from './_servicios/cliente.service';
 
 //pages modales
-import { DetallePage } from './inicio/detalle/detalle.page'
+import { DetallePage } from './carrito/detalle/detalle.page'
 @NgModule({
   declarations: [AppComponent,DetallePage],
   entryComponents: [DetallePage],
@@ -47,6 +51,7 @@ import { DetallePage } from './inicio/detalle/detalle.page'
     EmpresaService,
     UsuarioService,
     StorageService,
+    CarritoService,
     SucursalService,
     StockService,
     VentaService,
