@@ -148,6 +148,7 @@ export class DetallePage implements OnInit {
       if(this.rutCliente==""){
         this.filtrarCliente();
       }
+      console.log('probando');
     }
 
     verCliente(cliente){

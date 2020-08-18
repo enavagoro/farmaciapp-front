@@ -105,8 +105,14 @@ export class InicioPage implements OnInit {
 
       this.stockService.listarPorSucursal(val.id).subscribe(ps=>{
         console.log('listar por sucursal', ps);
-        this.productos = ps;
-        console.log('producto',this.productos);
+        for(let i = 0; i < ps.length; i++){
+          if(ps[i].estado){
+            this.productos.push(ps[i]);
+          }
+        }
+        console.log('productos',this.productos);
+
+        this.productosFiltrados = this.productos;
       })
     })
 
@@ -144,6 +150,27 @@ export class InicioPage implements OnInit {
   activarMenu(){
     this.banderaMenu = !this.banderaMenu;
     this.menu.hidden = this.banderaMenu;
+  }
+
+  filtrarListaProductos(){
+    this.productosFiltrados = [];
+    console.log('buscar',this.buscar);
+
+    for(let i=0; i<this.productos.length; i++){
+
+      var titulo = this.productos[i].titulo.toUpperCase();
+
+      if(titulo.includes(this.buscar.toUpperCase()) && this.productos[i].estado != 0 ){
+        this.productosFiltrados.push(this.productos[i]);
+      }
+    }
+
+    if(this.buscar==""){
+      this.productosFiltrados = this.productos;
+    }
+
+    console.log('productos filtrados despues del for',this.productosFiltrados);
+
   }
 
   abrirDetalle(producto){

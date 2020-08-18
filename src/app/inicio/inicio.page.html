@@ -14,7 +14,7 @@
       </ion-button>
     </ion-buttons>
     <div id="barra" class="barra-buscar" [ngClass]="{'barraLarga': banderaGrande}">
-      <ion-input  #buscarInput placeholder="Buscar" [(ngModel)]="buscar" (ionFocus)="cambiarBarra();" (ionBlur)="cambiarBarra();"></ion-input>
+      <ion-input  #buscarInput placeholder="Buscar" (keyup)="filtrarListaProductos();" [(ngModel)]="buscar" (ionFocus)="cambiarBarra();" (ionBlur)="cambiarBarra();"></ion-input>
     </div>
     <ion-buttons slot="start">
       <ion-buttons slot="start">
@@ -36,7 +36,7 @@
   <div class="contenedor">
     <div class="contenedor-principal" *ngIf="banderaPrincipal==true">
       <div class="cursos">
-        <div class="containerCard" *ngFor="let p of productos"><!-- (click)="abrirDetalle(r)" -->
+        <div class="containerCard" *ngFor="let p of productosFiltrados"><!-- (click)="abrirDetalle(r)" -->
           <div class="card" (click)="abrirDetalle(p);">
             <h1 style="color:#fa949d">{{p.titulo}}</h1>
             <img class="imagen" src="https://image.flaticon.com/icons/svg/3043/3043869.svg">
