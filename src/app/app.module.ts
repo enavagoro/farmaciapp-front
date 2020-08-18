@@ -20,10 +20,14 @@ import { UsuarioService } from './_servicios/usuario.service';
 import { StorageService } from './_servicios/storage.service';
 import { SucursalService } from './_servicios/sucursales.service';
 import { StockService } from './_servicios/stock.service';
+import { VentaService } from './_servicios/venta.service';
+import { ClienteService } from './_servicios/cliente.service';
 
+//pages modales
+import { DetallePage } from './inicio/detalle/detalle.page'
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,DetallePage],
+  entryComponents: [DetallePage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -45,6 +49,8 @@ import { StockService } from './_servicios/stock.service';
     StorageService,
     SucursalService,
     StockService,
+    VentaService,
+    ClienteService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

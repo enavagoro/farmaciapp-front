@@ -3,6 +3,8 @@ import { ModalController ,ToastController, AlertController} from '@ionic/angular
 import { Storage } from '@ionic/storage';
 import { ProductoService } from '../_servicios/producto.service';
 import { StockService } from '../_servicios/stock.service';
+import { Router } from '@angular/router';
+import { DetallePage } from './detalle/detalle.page';
 
 @Component({
   selector: 'app-inicio',
@@ -13,7 +15,7 @@ export class InicioPage implements OnInit {
   @ViewChild('buscarInput',{static:false}) buscarInput;
 
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-
+/*
     console.log("aprete una tecliña",event);
     let asciiMenor = 32;
     let asciiMayor = 126;
@@ -25,7 +27,7 @@ export class InicioPage implements OnInit {
       this.buscarInput.setFocus();
       (this.buscar ? this.productos = this.productos.filter( producto => this.filtrarProductos(producto,this.buscar)) : this.productos = this.productos)
     }
-
+*/
   }
   buscar : string = undefined;
   /* Producto
@@ -46,13 +48,17 @@ export class InicioPage implements OnInit {
   banderaPrincipal = true;
   banderaCalculadora = false;
   banderaMenu = true;
+  banderaDescuento = true;
 
   productos = [];
   carrito = [];
+  total = Number(null);
+  ventas = [];
+  public venta  = {estado:0,id:0,idCliente:0,desde:'POS',fecha:new Date().toLocaleDateString(),detalle:[],dias:1,tipoDocumento:0,metodo:1,idEmpresa:0,idUsuario:''};
   //producto = {"titulo":"","venta":0,"descripcion":"","cantidadMaxima":0,"cantidad":0,"estado":"","codigo":""};
   producto = {"cantidad":0,"categorias":[],"codigo":"","costo:":0,"id":"","empresa":"","estado":"","titulo":"","venta":0,"sucursal":""};
+
   productosFiltrados = [];
-  /* hardcodeo del weno */
 
   productosAgregados = [];
 
@@ -62,7 +68,7 @@ export class InicioPage implements OnInit {
 
   banderaGrande : boolean = false;
   menu = document.querySelector('ion-menu');
-
+  detalle = [];
   sucursal = {codigo:'',empresa:'',encargado:'',titulo:''};
 
   constructor(private toastController : ToastController,
@@ -70,11 +76,29 @@ export class InicioPage implements OnInit {
               private modalCtrl : ModalController,
               private storage : Storage,
               private productoService : ProductoService,
-              private stockService : StockService) {
-
-  }
+              private stockService : StockService,
+              private router : Router) {
+/*
+               this.storage.get('usuarios').then((val) => {
+                  if(val){
+                    this.usuario = val;
+                    console.log(val);
+                    var permission = this.usuarioService.tienePermiso(val,'ventas');
+                    if(permission){
+                      this.permission = permission;
+                      if(!permission.r){
+                        this.storage.clear();
+                        this.router.navigate(['/login'], {replaceUrl: true});
+                      }
+                    }
+                  }
+                })
+                */
+            }
 
   ngOnInit() {
+
+
     this.activarMenu();
     this.storage.get('sucursal').then((val) => {
       console.log('val',val);
@@ -82,10 +106,19 @@ export class InicioPage implements OnInit {
       this.stockService.listarPorSucursal(val.id).subscribe(ps=>{
         console.log('listar por sucursal', ps);
         this.productos = ps;
-        console.log(this.productos);
+        console.log('producto',this.productos);
       })
     })
 
+/*
+    this.ventaService.listar().then(servicio=>{
+      servicio.subscribe(v=>{
+          this.ventas = v;
+          console.log('ventas',this.ventas);
+          console.log('venta',this.venta);
+      })
+    })
+    */
     /*
     this.productoService.listar().then(servicio=>{
       servicio.subscribe(p=>{
@@ -136,8 +169,19 @@ export class InicioPage implements OnInit {
     this.carrito[indice]['cantidad'] --;
     if(!this.carrito[indice]['cantidad']){
       this.carrito.splice(indice,1);
+      this.actualizarTotal();
     }
     this.carrito[indice]['total'] = ((this.carrito[indice]['cantidad']) * (this.carrito[indice]['venta']));
+    this.actualizarTotal();
+  }
+
+  aumentarProducto(indice){
+    console.log("Carrito: ",this.carrito[indice])
+  }
+
+  quitarProducto(indice){
+    this.carrito.splice(indice,1);
+    this.actualizarTotal();
   }
 
   sumarProducto(){
@@ -154,6 +198,8 @@ export class InicioPage implements OnInit {
     }
   }
 
+  /* Carrito  */
+
   cerrarDetalle(){
     this.producto = {"cantidad":0,"categorias":[],"codigo":"","costo:":0,"id":"","empresa":"","estado":"","titulo":"","venta":0,"sucursal":""};
     this.activarPagePrincipal();
@@ -165,7 +211,8 @@ export class InicioPage implements OnInit {
     var encontrados = this.carrito.filter(prod => { return prod.codigo ==  codigo});
     return  encontrados;
   }
-/* las funciones aún no están realizadas es mero testeo */
+
+  /* las funciones aún no están realizadas es mero testeo */
 
   agregarProducto(){
     console.log(this.selector);
@@ -177,19 +224,35 @@ export class InicioPage implements OnInit {
       if(previos[0].cantidad >= this.selector['numeroMaximo']){
         alert("loco ya basta de agregar mas weas");
         previos[0].cantidad = this.selector['numeroMaximo'];
+        this.actualizarTotal();
       }
       // actualizar prod
     }else{
-        let valorTotal = (this.selector.numeroActual * this.producto.venta);
-        console.log(valorTotal);
-        let prod = {codigo:this.producto.codigo,venta : this.producto.venta , titulo : this.producto.titulo , cantidad : this.selector.numeroActual, total : valorTotal}
+        let prod = {codigo:this.producto.codigo,venta : this.producto.venta , titulo : this.producto.titulo , cantidad : this.selector.numeroActual}
         this.carrito.push(prod)
+        this.actualizarTotal();
     }
     this.producto.cantidad - this.selector.numeroActual;
     this.activarPagePrincipal();
-    console.log(this.carrito);
+    this.actualizarTotal();
+    console.log('carrito',this.carrito);
   }
 
+  actualizarTotal(){
+    console.log('entré');
+    var total = Number(null);
+    if(this.carrito.length==0){
+      total = 0;
+    }
+    else{
+      for(let i = 0; i<this.carrito.length; i++){
+        total += (this.carrito[i].cantidad * this.carrito[i].venta);
+      }
+    }
+    console.log('total',total);
+    this.total = total;
+    console.log('total final (this.total)',this.total);
+  }
 /*
   async confirmarAgregar(){
 
@@ -222,11 +285,35 @@ export class InicioPage implements OnInit {
     this.banderaGrande = !this.banderaGrande;
   }
 
+  cambiarDescuento(){
+    this.banderaDescuento = !this.banderaDescuento;
+  }
+
   filtrarProductos(producto,valorInput){
     console.log(producto);
     console.log(valorInput);
     if(!valorInput){return true};
     return producto.titulo.includes(valorInput);
+  }
+
+  traerCarrito(){
+    console.log('dentro de la función traer carrito',this.detalle);
+    this.detalle = this.carrito;
+  }
+
+  async abrirConfirmacion(){
+    this.traerCarrito();
+
+    const modal = await this.modalCtrl.create({
+      component: DetallePage,
+      cssClass: 'modals',
+      componentProps:{
+        'detalle' : this.detalle
+      }
+    });
+    console.log('Pasamos a detalle');
+
+    return await modal.present();
   }
 
 }

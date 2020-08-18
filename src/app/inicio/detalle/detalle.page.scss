@@ -1,0 +1,49 @@
+ion-toolbar{
+  --background: #c9ccf0;
+  text-align: center;
+  --color: white;
+}
+
+.textos{
+
+  h1{
+    font-size: 16px;
+    margin-top: 2%;
+  }
+}
+
+ion-avatar{
+  --border-radius: 0px;
+}
+
+.contenedor-boton{
+  width: 100%;
+}
+
+.boton-pago{
+  --background: #c9ccf0;
+  --background-activated:#c9ccf0;
+  --background-focused:#c9ccf0;
+  --background-hover:#c9ccf0;
+  width: 80% !important;
+  margin-left: 10% !important;
+  margin-top: 6%;
+  margin-bottom: 6%;
+}
+
+@media (max-width:900px){
+  .contenedor-boton{
+    width: 100%;
+  }
+
+  .boton-pago{
+    --background: #c9ccf0;
+    --background-activated:#c9ccf0;
+    --background-focused:#c9ccf0;
+    --background-hover:#c9ccf0;
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-top: 6%;
+    margin-bottom: 6%;
+  }
+}

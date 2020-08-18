@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Confirmación de Venta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-item>
+      <ion-label>Descuento</ion-label>
+      1200
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Total</ion-label>
+      1200
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
+      </ion-avatar>
+
+      <ion-label>Tipo de Documento</ion-label>
+      <ion-select [(ngModel)]="venta.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
+        <ion-select-option>Boleta</ion-select-option>
+        <ion-select-option selected>Factura</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
+      </ion-avatar>
+
+      <ion-label>Metódo de pago</ion-label>
+      <ion-select [(ngModel)]="venta.metodo" name="metodo" required [disabled]="bandera==true">
+        <ion-select-option *ngFor="let metodo of metodos;" value="{{metodo.valor}}">{{metodo.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
+      </ion-avatar>
+
+      <ion-label>Tiempo de pago</ion-label>
+      <ion-select [(ngModel)]="venta.dias" name="dia" required [disabled]="bandera==true">
+        <ion-select-option *ngFor="let dia of dias;" value="{{dia.valor}}">{{dia.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Cliente Existente</ion-label>
+      <ion-toggle [(ngModel)]="clientExist" name="banderaOpciones" (click)="cambiarEstadoCliente();"></ion-toggle><!--(click)="limpiar();"-->
+    </ion-item>
+
+    <ion-item *ngIf="clientExist">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Ingrese Rut <ion-text color="danger"></ion-text></ion-label>
+      <ion-input type="text" (keyup)="filtrarCliente()" name="rutCliente" [(ngModel)]="rutCliente"></ion-input>
+    </ion-item>
+
+    <ion-list *ngIf="nombreCliente != '' && clientExist">
+      <ion-radio-group>
+        <ion-list-header>Clientes</ion-list-header>
+          <ion-item  *ngFor="let cliente of clientesFiltrado" (click)="verCliente(cliente)">
+            <ion-avatar slot="start">
+              <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+            </ion-avatar>
+            <ion-label>{{cliente.nombre}}</ion-label>
+            <ion-radio slot="start"></ion-radio>
+          </ion-item>
+       </ion-radio-group>
+    </ion-list>
+  </form>
+
+  <div class="contenedor-boton">
+    <ion-button class="boton-pago" (click)="guardarVenta();">Generar Venta</ion-button>
+  </div>
+</ion-content>

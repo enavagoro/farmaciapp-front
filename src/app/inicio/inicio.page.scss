@@ -188,7 +188,7 @@ ion-toolbar{
 
 .boton-izquierdo{
   width: 100%;
-  background: #c9ccf0;
+  background: #ffd3dc;
   border-radius: 200px;
 }
 
@@ -200,7 +200,7 @@ ion-toolbar{
 
 .boton-derecho{
   width: 100%;
-  background: #c9ccf0;
+  background: #ffd3dc;
   border-radius: 200px;
 }
 
@@ -252,8 +252,20 @@ ion-toolbar{
     background: white; //ojo aqui
     position: fixed !important;
     z-index: 2 !important;
-    height: 23%;
-    top: 77%;
+    height: 30%;
+    top: 70%;
+  }
+
+  .badge-indicador{
+    --background: #c9ccf0;
+    margin-left: 3%;
+    padding: 1%;
+  }
+
+  .boton-producto{
+    width: 35px;
+    height: 35px;
+    background: #ffd3dc;
   }
 
   .contenedor-boton{
@@ -436,7 +448,7 @@ ion-toolbar{
   }
 
   .item-final{
-    padding-bottom: 20vh;
+    padding-bottom: 30vh;
   }
 
   .contenedor-footer{
@@ -449,8 +461,8 @@ ion-toolbar{
     background: white; //ojo aqui
     position: fixed !important;
     z-index: 2 !important;
-    height: 25%;
-    top: 75%;
+    height: 30%;
+    top:70%;
   }
 
   .contenedor-boton{
