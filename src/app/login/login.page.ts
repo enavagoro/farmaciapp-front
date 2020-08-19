@@ -42,7 +42,7 @@ import { AlertController } from '@ionic/angular';
     ngAfterViewInit(){
       console.log("visible?");
       var menu = document.querySelector('ion-menu');
-      menu.hidden = true;
+      menu.hidden = true;      
     }
 
     ngOnInit() {

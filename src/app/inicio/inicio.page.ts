@@ -116,8 +116,21 @@ export class InicioPage implements OnInit {
           }
         }
         console.log('productos',this.productos);
-
-        this.productosFiltrados = this.productos;
+        var productosAgrupados = [];
+        this.productos.map(producto=>{
+          var indice = -1;
+          for(var i = 0 ; i < productosAgrupados.length ; i++){
+              if(producto.codigo == productosAgrupados[i].codigo ){
+                indice = i;
+              }
+          }
+          if(indice === -1){
+            productosAgrupados.push(producto);
+          }else{
+            productosAgrupados[indice].cantidad += producto.cantidad;
+          }
+        })
+        this.productosFiltrados = productosAgrupados;
       })
     })
   }
