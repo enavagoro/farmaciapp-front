@@ -10,10 +10,17 @@ ion-toolbar{
 
 .barra-buscar{
   background: white;
-  width: 10%;
+  width: 15%;
   margin-left: 2%;
   border-radius: 9px;
   color: #252526;
+  display: flex
+}
+
+.boton-lupa{
+  margin-top: 15px;
+  height: 10px;
+  margin-left: 25%;
 }
 
 .barraLarga{
@@ -218,6 +225,55 @@ ion-toolbar{
   margin-top: 5%;
   margin-bottom: 2%;
 }
+
+  .contenedor-categorias{
+    margin-left: 55%;
+    width: 40%;
+    height: 50vh;
+    position: fixed;
+    background: #fafafa;
+    overflow-y: auto;
+    z-index: 99;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    ion-toolbar{
+      --background: #c9ccf0;
+      //--background: #f8e5e9;
+      color: white;
+    }
+  }
+
+  .texto-categorias{
+    color: white;
+    margin-left: 3%;
+    font-size: 22px;
+  }
+
+  .contenedor-etiquetas{
+    margin-top: 2.5%;
+    width: 95%;
+    height: 90%;
+    margin-left: 2.5%;
+    background: white;
+    border-radius: 4px;
+    display: flex;
+    margin-bottom: 2.5%;
+  }
+
+  .item-etiquetas{
+    width: 100%;
+    margin-top: 3%;
+    cursor: pointer;
+  }
+
+  .etiqueta{
+    background: #c9ccf0;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
 
 /* lado derecho */
 
