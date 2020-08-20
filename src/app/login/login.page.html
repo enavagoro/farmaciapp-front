@@ -1,18 +1,27 @@
 <ion-content>
-  <h1>hola</h1>
+    <div class="contenedor-login">
 
-  <form [formGroup]="loginForm">
-    <ion-item class="item-login">
-      <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('correo')"></control-messages></ion-label>
-       <ion-input type="email" autocomplete="off" formControlName="correo" placeholder="Correo"></ion-input>
-     </ion-item>
+    <div class="logo-lirio">
+      <div class="contenedor-logo">
+        <img class="imagen-logo" src="./assets/icon/logo-blanco.svg">
+      </div>
+      <div class="contenedor-texto-logo">
+        <img class="imagen-logo" src="./assets/icon/texto-logo-blanco.png">
+      </div>
+    </div>
 
-     <ion-item class="item-login">
-       <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('clave')"></control-messages></ion-label>
-        <ion-input type="password" autocomplete="off" formControlName="clave" placeholder="Contraseña"></ion-input>
-      </ion-item>
-  </form>
+    <form [formGroup]="loginForm">
+      <ion-item class="item-login">
+        <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('correo')"></control-messages></ion-label>
+         <ion-input type="email" autocomplete="off" formControlName="correo" placeholder="Correo"></ion-input>
+       </ion-item>
 
-  <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
+       <ion-item class="item-login">
+         <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('clave')"></control-messages></ion-label>
+          <ion-input type="password" autocomplete="off" formControlName="clave" placeholder="Contraseña"></ion-input>
+        </ion-item>
+    </form>
 
+    <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
+  </div>
 </ion-content>

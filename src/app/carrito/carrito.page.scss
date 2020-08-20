@@ -1,3 +1,7 @@
+.celular{
+  display: none;
+}
+
 /* lado derecho */
 
   .contenedor-lateral{
@@ -85,6 +89,9 @@
 
 @media (max-width:900px){
   /* parte derecha */
+  .celular{
+    display: block;
+  }
 
   .contenedor-lateral{
      position: fixed; /* Stay in place */

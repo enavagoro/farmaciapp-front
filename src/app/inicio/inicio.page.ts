@@ -104,7 +104,7 @@ export class InicioPage implements OnInit {
     this.carritoService.getCarrito().subscribe(estado => {
       this.banderaBarra = estado['bandera'];
     });
-    
+
     this.activarMenu();
     this.storage.get('sucursal').then((val) => {
       console.log('val',val);
