@@ -47,9 +47,10 @@ export class InicioPage implements OnInit {
 
   banderaBarra = true;
   banderaPrincipal = true;
-  banderaCalculadora = false;
+  banderaCalculadora = true;
   banderaMenu = true;
   banderaDescuento = true;
+  banderaCategoria = true;
 
   productos = [];
   carrito = [];
@@ -71,6 +72,7 @@ export class InicioPage implements OnInit {
   menu = document.querySelector('ion-menu');
   detalle = [];
   sucursal = {codigo:'',empresa:'',encargado:'',titulo:''};
+  categorias = [];
 
   constructor(private toastController : ToastController,
               private alertController :AlertController,
@@ -99,22 +101,28 @@ export class InicioPage implements OnInit {
             }
 
   ngOnInit() {
-
     this.carritoService.getCarrito().subscribe(estado => {
       this.banderaBarra = estado['bandera'];
     });
-
+    
     this.activarMenu();
     this.storage.get('sucursal').then((val) => {
       console.log('val',val);
-
       this.stockService.listarPorSucursal(val.id).subscribe(ps=>{
-        console.log('listar por sucursal', ps);
-        for(let i = 0; i < ps.length; i++){
-          if(ps[i].estado){
-            this.productos.push(ps[i]);
+        //ps = ps.filter(dato=>{return dato.estado});
+
+        for(var producto of ps){
+          if(producto.estado){
+            this.productos.push(producto);
+
+            producto.categorias.map(c=>{
+              if(!this.categorias.includes(c.nombre)){
+                this.categorias.push(c.nombre);
+              }
+            })
           }
         }
+
         console.log('productos',this.productos);
         var productosAgrupados = [];
         this.productos.map(producto=>{
@@ -145,6 +153,11 @@ export class InicioPage implements OnInit {
 
   activarPagePrincipal(){
     this.banderaPrincipal = !this.banderaPrincipal;
+  }
+
+  activarCategorias(){
+    console.log('entre a categorias')
+    this.banderaCategoria = !this.banderaCategoria;
   }
 
   activarMenu(){

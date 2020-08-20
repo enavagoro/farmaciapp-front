@@ -15,11 +15,24 @@
     </ion-buttons>
     <div id="barra" class="barra-buscar" [ngClass]="{'barraLarga': banderaGrande}">
       <ion-input  #buscarInput placeholder="Buscar" (keyup)="filtrarListaProductos();" [(ngModel)]="buscar" (ionFocus)="cambiarBarra();" (ionBlur)="cambiarBarra();"></ion-input>
+      <ion-buttons class="boton-lupa">
+        <ion-button (click)="activarCarrito();"><!-- (click)="cerrarModal()" -->
+          <ion-icon class="icono-deseleccionado" slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </div>
     <ion-buttons slot="start">
       <ion-buttons slot="start">
         <ion-menu-button style="--color:white;"></ion-menu-button>
       </ion-buttons>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="activarCategorias();" *ngIf="banderaCategoria"><!-- (click)="cerrarModal()" -->
+        <ion-icon class="icono-seleccionado" slot="icon-only" name="options"></ion-icon>
+      </ion-button>
+      <ion-button (click)="activarCategorias();" *ngIf="!banderaCategoria"><!-- (click)="cerrarModal()" -->
+        <ion-icon class="icono-deseleccionado" slot="icon-only" name="options"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="activarCarrito();" *ngIf="banderaBarra==true"><!-- (click)="cerrarModal()" -->
@@ -98,10 +111,12 @@
       </div>
     </div>
 
+
     <!--
     carrito
     -->
     <app-carrito *ngIf="banderaBarra"></app-carrito>
+
   </div>
 
 </ion-content>
