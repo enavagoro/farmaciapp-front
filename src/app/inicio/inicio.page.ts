@@ -1,10 +1,11 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { ModalController ,ToastController, AlertController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { CarritoService } from '../_servicios/carrito.service';
 import { ProductoService } from '../_servicios/producto.service';
 import { StockService } from '../_servicios/stock.service';
 import { Router } from '@angular/router';
-import { DetallePage } from './detalle/detalle.page';
+
 
 @Component({
   selector: 'app-inicio',
@@ -44,7 +45,7 @@ export class InicioPage implements OnInit {
 
   // (para después de llamar el servicio) -> producto = {id:0,titulo:'',precio:0,descripcion:'',cantidadMaxima:0,estado:false,codigo:''};
 
-  banderaBarra = false;
+  banderaBarra = true;
   banderaPrincipal = true;
   banderaCalculadora = true;
   banderaMenu = true;
@@ -79,6 +80,7 @@ export class InicioPage implements OnInit {
               private storage : Storage,
               private productoService : ProductoService,
               private stockService : StockService,
+              private carritoService : CarritoService,
               private router : Router) {
 /*
                this.storage.get('usuarios').then((val) => {
@@ -99,6 +101,10 @@ export class InicioPage implements OnInit {
             }
 
   ngOnInit() {
+    this.carritoService.getCarrito().subscribe(estado => {
+      this.banderaBarra = estado['bandera'];
+    });
+    
     this.activarMenu();
     this.storage.get('sucursal').then((val) => {
       console.log('val',val);
@@ -116,33 +122,29 @@ export class InicioPage implements OnInit {
             })
           }
         }
-        this.productosFiltrados = this.productos;
-        console.log('productos', this.productos);
-        console.log('categorias finales', this.categorias);
-      })
-    })
 
-/*
-    this.ventaService.listar().then(servicio=>{
-      servicio.subscribe(v=>{
-          this.ventas = v;
-          console.log('ventas',this.ventas);
-          console.log('venta',this.venta);
+        console.log('productos',this.productos);
+        var productosAgrupados = [];
+        this.productos.map(producto=>{
+          var indice = -1;
+          for(var i = 0 ; i < productosAgrupados.length ; i++){
+              if(producto.codigo == productosAgrupados[i].codigo ){
+                indice = i;
+              }
+          }
+          if(indice === -1){
+            productosAgrupados.push(producto);
+          }else{
+            productosAgrupados[indice].cantidad += producto.cantidad;
+          }
+        })
+        this.productosFiltrados = productosAgrupados;
       })
     })
-    */
-    /*
-    this.productoService.listar().then(servicio=>{
-      servicio.subscribe(p=>{
-          this.productos = p;
-          console.log('productos service ',this.productos);
-      })
-    })
-    */
   }
 
   activarCarrito(){
-    this.banderaBarra = !this.banderaBarra;
+    this.carritoService.toggleCarrito();
   }
 
   activarCalculadora(){
@@ -179,7 +181,6 @@ export class InicioPage implements OnInit {
     if(this.buscar==""){
       this.productosFiltrados = this.productos;
     }
-
     console.log('productos filtrados despues del for',this.productosFiltrados);
 
   }
@@ -253,27 +254,12 @@ export class InicioPage implements OnInit {
   /* las funciones aún no están realizadas es mero testeo */
 
   agregarProducto(){
-    console.log(this.selector);
-    console.log(this.producto);
-    var previos = this.encontrarPorCodigo(this.producto.codigo);
-
-    if(previos.length){
-      previos[0].cantidad += this.selector.numeroActual;
-      if(previos[0].cantidad >= this.selector['numeroMaximo']){
-        alert("loco ya basta de agregar mas weas");
-        previos[0].cantidad = this.selector['numeroMaximo'];
-        this.actualizarTotal();
-      }
-      // actualizar prod
-    }else{
-        let prod = {codigo:this.producto.codigo,venta : this.producto.venta , titulo : this.producto.titulo , cantidad : this.selector.numeroActual}
-        this.carrito.push(prod)
-        this.actualizarTotal();
+    if(!this.banderaBarra){
+      this.carritoService.toggleCarrito();
     }
-    this.producto.cantidad - this.selector.numeroActual;
-    this.activarPagePrincipal();
-    this.actualizarTotal();
-    console.log('carrito',this.carrito);
+    this.carritoService.addProduct(this.selector,this.producto);
+    this.activarPagePrincipal()
+
   }
 
   actualizarTotal(){
@@ -291,32 +277,6 @@ export class InicioPage implements OnInit {
     this.total = total;
     console.log('total final (this.total)',this.total);
   }
-/*
-  async confirmarAgregar(){
-
-    const alert = await this.alertController.create({
-      header: '¿Estás Seguro?',
-      message: '¿Deseas agregar este producto al detalle? ',//definir bien el concepto de boleta,detalle,carrito? tu conoces el modelo de negocio :p
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            //console.log('Cancelado');
-          }
-        }, {
-          text: 'Aceptar',
-          handler: () => {
-            this.agregarProducto();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-  */
 
   /* estilos barra */
   cambiarBarra(){
@@ -334,24 +294,6 @@ export class InicioPage implements OnInit {
     return producto.titulo.includes(valorInput);
   }
 
-  traerCarrito(){
-    console.log('dentro de la función traer carrito',this.detalle);
-    this.detalle = this.carrito;
-  }
 
-  async abrirConfirmacion(){
-    this.traerCarrito();
-
-    const modal = await this.modalCtrl.create({
-      component: DetallePage,
-      cssClass: 'modals',
-      componentProps:{
-        'detalle' : this.detalle
-      }
-    });
-    console.log('Pasamos a detalle');
-
-    return await modal.present();
-  }
 
 }

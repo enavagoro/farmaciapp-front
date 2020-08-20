@@ -1,0 +1,64 @@
+  <div class="contenedor-lateral" *ngIf="banderaBarra" >
+
+    <div class="celular">
+      <ion-buttons>
+        <ion-button (click)="activarCarrito();">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+
+    <div class="" *ngFor="let p of carrito;index as i">
+      <ion-item lines="none">
+        <ion-avatar class="boton-producto" slot="start" (click)="disminuirProducto(i)" style="cursor: pointer;">
+         <ion-label><ion-icon name="remove"></ion-icon></ion-label>
+       </ion-avatar>
+       <ion-avatar class="boton-producto" slot="start" (click)="aumentarProducto(i)" style="cursor: pointer;">
+        <ion-label><ion-icon name="add"></ion-icon></ion-label>
+      </ion-avatar>
+      <ion-buttons slot="end">
+        <ion-button (click)="quitarProducto(i)">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-label>{{p.cantidad}}</ion-label>
+        </ion-avatar>
+        <ion-label>{{p.titulo}}<p>{{p.venta| number}}$</p></ion-label>
+        <p>{{p.cantidad * p.venta| number}}$</p>
+      </ion-item>
+    </div>
+
+      <ion-item lines="none" class="item-final">
+
+      </ion-item>
+
+      <div class="footer">
+        <div class="">
+          <ion-badge *ngIf="banderaDescuento" class="badge-indicador">Porcentaje</ion-badge>
+          <ion-badge *ngIf="!banderaDescuento" class="badge-indicador">Valor</ion-badge>
+        </div>
+        <ion-item>
+          <ion-label>Descuento</ion-label>
+          <ion-input type="number"></ion-input>
+          <ion-buttons>
+            <ion-button *ngIf="banderaDescuento" (click)="cambiarDescuento();">
+              <ion-icon slot="icon-only" name="pricetag-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="!banderaDescuento" (click)="cambiarDescuento();">
+               <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+        <ion-item>
+          <ion-label>Total</ion-label>
+          {{total}}
+        </ion-item>
+        <div class="contenedor-boton">
+          <ion-button class="boton-pago" (click)="abrirConfirmacion();">Confirmación de Venta</ion-button>
+        </div>
+      </div>
+  </div>
