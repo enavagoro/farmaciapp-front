@@ -7,7 +7,7 @@
           <ion-note>hi@ionicframework.com</ion-note>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+            <ion-item mode="md" (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label class="label">{{ p.title }}</ion-label>
             </ion-item>
@@ -24,11 +24,11 @@
         </ion-list>
         -->
 
-        <ion-item class="item-menu" routerDirection="root" [routerLink]="'sucursales'" (click)="cerrarInicio()"  lines="none">
+        <ion-item mode="md" class="item-menu" routerDirection="root" [routerLink]="'sucursales'" (click)="cerrarInicio()"  lines="none">
           <ion-icon class="icono-apagar" slot="start" name="cube"></ion-icon>
           <ion-label class="cerrar-sesion">Volver a Sucursales</ion-label>
         </ion-item>
-        <ion-item class="item-menu" (click)="cerrarSesion()" lines="none">
+        <ion-item mode="md" class="item-menu" (click)="cerrarSesion()" lines="none">
           <ion-icon class="icono-apagar" slot="start" name="power"></ion-icon>
           <ion-label class="cerrar-sesion">Cerrar Sesión</ion-label>
         </ion-item>

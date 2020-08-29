@@ -11,17 +11,17 @@
     </div>
 
     <form [formGroup]="loginForm">
-      <ion-item class="item-login">
+      <ion-item class="item-login" mode="md">
         <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('correo')"></control-messages></ion-label>
          <ion-input type="email" autocomplete="off" formControlName="correo" placeholder="Correo"></ion-input>
        </ion-item>
 
-       <ion-item class="item-login">
+       <ion-item class="item-login" mode="md">
          <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('clave')"></control-messages></ion-label>
           <ion-input type="password" autocomplete="off" formControlName="clave" placeholder="Contraseña"></ion-input>
         </ion-item>
     </form>
 
-    <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
+    <ion-button mode="md" class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
   </div>
 </ion-content>

@@ -50,7 +50,7 @@ export class InicioPage implements OnInit {
   banderaCalculadora = true;
   banderaMenu = true;
   banderaDescuento = true;
-  banderaCategoria = true;
+  banderaCategoria = false;
 
   productos = [];
   carrito = [];
@@ -61,7 +61,7 @@ export class InicioPage implements OnInit {
   producto = {"cantidad":0,"categorias":[],"codigo":"","costo:":0,"id":"","empresa":"","estado":"","titulo":"","venta":0,"sucursal":""};
 
   productosFiltrados = [];
-
+  productosRespaldados = [];
   productosAgregados = [];
 
   selector = {numeroMinimo: 999, numeroActual: 999, numeroMaximo: 999};
@@ -72,7 +72,9 @@ export class InicioPage implements OnInit {
   menu = document.querySelector('ion-menu');
   detalle = [];
   sucursal = {codigo:'',empresa:'',encargado:'',titulo:''};
+
   categorias = [];
+  categoriasRespaldo = [];
 
   constructor(private toastController : ToastController,
               private alertController :AlertController,
@@ -101,6 +103,8 @@ export class InicioPage implements OnInit {
             }
 
   ngOnInit() {
+    this.carritoService.toggleCarrito();
+
     this.carritoService.getCarrito().subscribe(estado => {
       this.banderaBarra = estado['bandera'];
     });
@@ -116,8 +120,12 @@ export class InicioPage implements OnInit {
             this.productos.push(producto);
 
             producto.categorias.map(c=>{
-              if(!this.categorias.includes(c.nombre)){
-                this.categorias.push(c.nombre);
+              var t = this.categorias.filter(x => x.nombre == c.nombre);
+              if(t.length==0)
+              {
+                this.categorias.push(c);
+                c['active']=false;
+                this.categoriasRespaldo.push(c);
               }
             })
           }
@@ -139,6 +147,7 @@ export class InicioPage implements OnInit {
           }
         })
         this.productosFiltrados = productosAgrupados;
+        this.productosRespaldados = productosAgrupados;
       })
     })
   }
@@ -294,6 +303,44 @@ export class InicioPage implements OnInit {
     return producto.titulo.includes(valorInput);
   }
 
+  filtrar(categoria,cx){
+    if(categoria == 'Todos'){
+      cx['active']=false;
+      this.restart();
+    }
+    else{
+      var productosFiltrados = [];
+      this.filtrarCategorias(categoria);
 
+      console.log('categoria', categoria);
+      console.log('productos filtrados', this.productosFiltrados);
+      for(var producto of this.productosFiltrados){
+        producto.categorias.map(x => {
+          if(x.nombre == categoria.nombre){
+            productosFiltrados.push(producto);
+          }
+        })
+        /*
+        for (var categoriaProducto of producto.categorias){
+          if(categoriaProducto.nombre == categoria){
+            console.log('que pasa chavales');
+          }
+        }
+        */
+      }
+      this.productosFiltrados = productosFiltrados;
+    }
+  }
+
+  filtrarCategorias(categoria){
+    this.categorias = this.categorias.filter(x => x.nombre == categoria.nombre);
+    this.categorias.map(c => c['active']=true);
+    console.log('buenas chavales',this.categorias);
+  }
+
+  restart(){
+    this.categorias = this.categoriasRespaldo;
+    this.productosFiltrados = this.productosRespaldados;
+  }
 
 }
