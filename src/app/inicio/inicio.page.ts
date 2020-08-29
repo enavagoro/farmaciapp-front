@@ -5,6 +5,8 @@ import { CarritoService } from '../_servicios/carrito.service';
 import { ProductoService } from '../_servicios/producto.service';
 import { StockService } from '../_servicios/stock.service';
 import { Router } from '@angular/router';
+import { IonInfiniteScroll } from '@ionic/angular';
+
 
 
 @Component({
@@ -14,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class InicioPage implements OnInit {
   @ViewChild('buscarInput',{static:false}) buscarInput;
+  @ViewChild(IonInfiniteScroll,{static:false}) infiniteScroll: IonInfiniteScroll;
 
   @HostListener('document:click', ['$event']) onKeydownHandler(event: KeyboardEvent) {
 
@@ -55,13 +58,15 @@ export class InicioPage implements OnInit {
   */
 
   // (para después de llamar el servicio) -> producto = {id:0,titulo:'',precio:0,descripcion:'',cantidadMaxima:0,estado:false,codigo:''};
-
+  cantidad = 50;
   banderaBarra = true;
   banderaPrincipal = true;
   banderaCalculadora = true;
   banderaMenu = true;
   banderaDescuento = true;
-  banderaCategoria = false;
+
+  banderaCategoria = true;
+  todosLosProductos = [];
 
   productos = [];
   carrito = [];
@@ -158,8 +163,11 @@ export class InicioPage implements OnInit {
             productosAgrupados[indice].cantidad += producto.cantidad;
           }
         })
-        this.productosFiltrados = productosAgrupados;
+
+        this.todosLosProductos = productosAgrupados;
+        this.productosFiltrados = this.todosLosProductos.slice(0, this.cantidad);;
         this.productosRespaldados = productosAgrupados;
+
       })
     })
   }
@@ -185,7 +193,18 @@ export class InicioPage implements OnInit {
     this.banderaMenu = !this.banderaMenu;
     this.menu.hidden = this.banderaMenu;
   }
+  loadData(event) {
+    this.cantidad += 50;
+    this.productosFiltrados = this.todosLosProductos.slice(0, this.cantidad);;
+    event.target.complete();
+    //if (this.productosFiltrados.length == this.todosLosProductos.length) {
+    //  event.target.disabled = true;
+    //}
+  }
 
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  }
   filtrarListaProductos(){
     this.productosFiltrados = [];
     console.log('buscar',this.buscar);
