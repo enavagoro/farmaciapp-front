@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild , ElementRef} from '@angular/core';
 import { ModalController ,ToastController, AlertController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { CarritoService } from '../_servicios/carrito.service';
@@ -15,7 +15,18 @@ import { Router } from '@angular/router';
 export class InicioPage implements OnInit {
   @ViewChild('buscarInput',{static:false}) buscarInput;
 
-  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+  @HostListener('document:click', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+
+    console.log('target ', event.target);
+    /*
+    console.log('id-container',document.getElementById("contenedor-categorias"));
+    console.log('id-boton',document.getElementById("boton-categoria"));
+*/
+/*
+    if(event.target != document.getElementById("contenedor-categorias")){
+      console.log('el target está afuera de categorias');
+    }
+    */
 /*
     console.log("aprete una tecliña",event);
     let asciiMenor = 32;
@@ -83,7 +94,8 @@ export class InicioPage implements OnInit {
               private productoService : ProductoService,
               private stockService : StockService,
               private carritoService : CarritoService,
-              private router : Router) {
+              private router : Router,
+              private eRef : ElementRef) {
 /*
                this.storage.get('usuarios').then((val) => {
                   if(val){
@@ -342,5 +354,4 @@ export class InicioPage implements OnInit {
     this.categorias = this.categoriasRespaldo;
     this.productosFiltrados = this.productosRespaldados;
   }
-
 }
