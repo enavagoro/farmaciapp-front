@@ -3,13 +3,13 @@
     <div class="celular">
       <ion-buttons>
         <ion-button (click)="activarCarrito();">
-          <ion-icon slot="icon-only" name="close"></ion-icon>
+          <ion-icon class="icono" slot="icon-only" name="close"></ion-icon>
         </ion-button>
       </ion-buttons>
     </div>
 
     <div class="" *ngFor="let p of carrito;index as i">
-      <ion-item lines="none">
+      <ion-item lines="none" mode="md">
         <ion-avatar class="boton-producto" slot="start" (click)="disminuirProducto(i)" style="cursor: pointer;">
          <ion-label><ion-icon name="remove"></ion-icon></ion-label>
        </ion-avatar>
@@ -23,7 +23,7 @@
       </ion-buttons>
       </ion-item>
 
-      <ion-item>
+      <ion-item mode="md">
         <ion-avatar slot="start">
           <ion-label>{{p.cantidad}}</ion-label>
         </ion-avatar>
@@ -38,27 +38,27 @@
 
       <div class="footer">
         <div class="">
-          <ion-badge *ngIf="banderaDescuento" class="badge-indicador">Porcentaje</ion-badge>
-          <ion-badge *ngIf="!banderaDescuento" class="badge-indicador">Valor</ion-badge>
+          <ion-badge mode="md" *ngIf="banderaDescuento" class="badge-indicador">Porcentaje</ion-badge>
+          <ion-badge mode="md" *ngIf="!banderaDescuento" class="badge-indicador">Valor</ion-badge>
         </div>
-        <ion-item>
+        <ion-item mode="md">
           <ion-label>Descuento</ion-label>
           <ion-input type="number"></ion-input>
           <ion-buttons>
             <ion-button *ngIf="banderaDescuento" (click)="cambiarDescuento();">
-              <ion-icon slot="icon-only" name="pricetag-outline"></ion-icon>
+              <ion-icon class="icono" slot="icon-only" name="pricetag-outline"></ion-icon>
             </ion-button>
             <ion-button *ngIf="!banderaDescuento" (click)="cambiarDescuento();">
-               <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
+               <ion-icon class="icono" slot="icon-only" name="cash-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-item>
-        <ion-item>
+        <ion-item mode="md">
           <ion-label>Total</ion-label>
           {{total}}
         </ion-item>
         <div class="contenedor-boton">
-          <ion-button class="boton-pago" (click)="abrirConfirmacion();">Confirmación de Venta</ion-button>
+          <ion-button mode="md" class="boton-pago" (click)="abrirConfirmacion();">Confirmación de Venta</ion-button>
         </div>
       </div>
   </div>

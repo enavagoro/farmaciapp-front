@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="md">
   <ion-toolbar>
     <ion-buttons slot="start">
       <!--
@@ -15,27 +15,27 @@
     </ion-buttons>
     <div id="barra" class="barra-buscar" [ngClass]="{'barraLarga': banderaGrande}">
       <ion-input  #buscarInput placeholder="Buscar" (keyup)="filtrarListaProductos();" [(ngModel)]="buscar" (ionFocus)="cambiarBarra();" (ionBlur)="cambiarBarra();"></ion-input>
+<!--
       <ion-buttons class="boton-lupa">
-        <ion-button (click)="activarCarrito();"><!-- (click)="cerrarModal()" -->
+        <ion-button (click)="activarCarrito();">
           <ion-icon class="icono-deseleccionado" slot="icon-only" name="search"></ion-icon>
         </ion-button>
       </ion-buttons>
+      -->
     </div>
     <ion-buttons slot="start">
       <ion-buttons slot="start">
         <ion-menu-button style="--color:white;"></ion-menu-button>
       </ion-buttons>
     </ion-buttons>
-<!--
     <ion-buttons slot="end">
       <ion-button (click)="activarCategorias();" *ngIf="banderaCategoria">
         <ion-icon class="icono-seleccionado" slot="icon-only" name="options"></ion-icon>
       </ion-button>
-      <ion-button (click)="activarCategorias();" *ngIf="!banderaCategoria"><
+      <ion-button (click)="activarCategorias();" *ngIf="!banderaCategoria">
         <ion-icon class="icono-deseleccionado" slot="icon-only" name="options"></ion-icon>
       </ion-button>
     </ion-buttons>
-    -->
     <ion-buttons slot="end">
       <ion-button (click)="activarCarrito();" *ngIf="banderaBarra==true"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-deseleccionado" slot="icon-only" name="receipt"></ion-icon>
@@ -63,36 +63,40 @@
     </div>
 
     <div class="contenedor-principal" *ngIf="banderaPrincipal==false">
-      <div style="margin-top:2%; margin-left:2%;">
-        <ion-buttons>
-          <ion-button (click)="cerrarDetalle()"><!-- (click)="cerrarModal()" -->
-            <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </div>
 
-      <div class="contenedor-textos-titulos">
-        <h1 class="titulo-producto">{{producto.titulo}}</h1>
-        <h1 class="precio-producto">${{producto.venta| number}}</h1>
-      </div>
-      <div class="contenedor-textos-titulos">
-        <p class="codigo-producto">Codigo: {{producto.codigo}}</p>
-        <div class="contenedor-estrellas">
-          <p class="codigo-producto"></p>
-        </div>
-      </div>
+          <div style="margin-top:2%; margin-left:2%;">
+            <ion-buttons>
+              <ion-button (click)="cerrarDetalle()"><!-- (click)="cerrarModal()" -->
+                <ion-icon style="color:black;" slot="icon-only" name="chevron-back"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </div>
+      <ion-slides>
+        <ion-slide class="slide">
+          <div class="contenedor-textos-titulos">
+            <h1 class="titulo-producto">{{producto.titulo}}</h1>
+            <h1 class="precio-producto">${{producto.venta| number}}</h1>
+          </div>
+          <div class="contenedor-textos-titulos">
+            <p class="codigo-producto">Codigo: {{producto.codigo}}</p>
+            <div class="contenedor-estrellas">
+              <p class="codigo-producto"></p>
+            </div>
+          </div>
 
       <div class="card-producto">
         <div class="contenedor-imagen-producto">
           <img class="imagen-producto" src="../assets/icon/pingu.svg">
         </div>
       </div>
+    </ion-slide>
+  </ion-slides>
       <p class="descripcion-producto">Descripción:<br><br>{{producto.descripcion}}</p>
 
       <p class="descripcion-cantidad">Cantidad<br><br>{{producto.cantidad| number}} unidades disponibles</p>
 
       <div class="selector">
-          <ion-buttons>
+          <ion-buttons mode="md">
             <ion-button class="boton-izquierdo" (click)="restarProducto()">
               <ion-icon class="icono-boton" name="remove" slot="icon-only"></ion-icon>
             </ion-button>
@@ -101,7 +105,7 @@
           <ion-label class="numero-actual" (click)="verInput = true" *ngIf="!verInput">{{selector.numeroActual}}</ion-label>
           <ion-label class="numero-actual" *ngIf="verInput"><ion-input [(ngModel)]="selector.numeroActual"></ion-input></ion-label>
 
-          <ion-buttons>
+          <ion-buttons mode="md">
             <ion-button class="boton-derecho" (click)="sumarProducto()">
               <ion-icon class="icono-boton" name="add" slot="icon-only"></ion-icon>
             </ion-button>
@@ -109,7 +113,7 @@
       </div>
 
       <div class="contenedor-boton-producto">
-        <ion-button class="boton-agregar" (click)="agregarProducto()" [disabled]="selector.numeroActual==0">Agregar Producto</ion-button>
+        <ion-button mode="md" class="boton-agregar" (click)="agregarProducto()" [disabled]="selector.numeroActual==0">Agregar Producto</ion-button>
       </div>
     </div>
 
@@ -118,6 +122,26 @@
     carrito
     -->
     <app-carrito *ngIf="banderaBarra"></app-carrito>
+
+    <div id="contenedor-categorias" class="contenedor-categorias" *ngIf="banderaCategoria">
+      <ion-toolbar>
+        <h1 class="texto-categorias">Categorías</h1>
+      </ion-toolbar>
+
+      <div class="contenedor-etiquetas">
+        <ion-item class="item-etiquetas" *ngFor="let c of categorias" mode="md">
+          <ion-badge class="etiqueta" >{{c.nombre}}</ion-badge>
+          <ion-buttons slot="end" class="contenedor-boton-categoria">
+            <ion-button slot="md" class="boton"  (click)="filtrar(c);" *ngIf="!c.active">
+              <ion-icon class="icono" slot="icon-only" name="checkmark"></ion-icon>
+            </ion-button>
+            <ion-button slot="md" class="boton"  (click)="filtrar('Todos',c);" *ngIf="c.active">
+              <ion-icon class="icono" slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </div>
+    </div>
 
   </div>
 

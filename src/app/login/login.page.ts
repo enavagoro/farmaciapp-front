@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild  } from '@angular/core';
 import { UsuarioService } from '../_servicios/usuario.service';
 import { Router } from '@angular/router';
 
@@ -17,6 +17,27 @@ import { AlertController } from '@ionic/angular';
     styleUrls: ['./login.page.scss'],
   })
   export class LoginPage implements OnInit {
+    @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+      let codigoEnter = 13;
+
+      if(event.keyCode == codigoEnter){
+        this.login();
+      }
+  /*
+      console.log("aprete una tecliña",event);
+      let asciiMenor = 32;
+      let asciiMayor = 126;
+      let valorEscape = 27;
+
+
+      if(event.keyCode > asciiMenor && event.keyCode < asciiMayor){
+
+        this.buscarInput.setFocus();
+        (this.buscar ? this.productos = this.productos.filter( producto => this.filtrarProductos(producto,this.buscar)) : this.productos = this.productos)
+      }
+  */
+    }
+
     usuario = "";
     //fingerprintOptions : FingerprintOptions;
     clave = "";
@@ -42,17 +63,13 @@ import { AlertController } from '@ionic/angular';
     ngAfterViewInit(){
       console.log("visible?");
       var menu = document.querySelector('ion-menu');
-      menu.hidden = true;      
+      menu.hidden = true;
     }
 
     ngOnInit() {
     }
 
-    keyDownFunction(event) {
-      if(event.keyCode == 13) {
-        this.login();
-      }
-    }
+
 
     async login(){
         this.auth.logUser(this.loginForm.value).then(servicio=>{

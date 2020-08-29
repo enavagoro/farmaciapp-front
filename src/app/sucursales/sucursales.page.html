@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="md">
   <ion-toolbar mode="md">
     <ion-title>Sucursales</ion-title>
   <ion-buttons slot="end">
@@ -15,7 +15,7 @@
 <ion-content>
   <div class="contenedor-mitades">
     <div class="parte-izquierda">
-      <ion-item class="item-sucursal" *ngFor = "let s of sucursales" (click)="seleccionarSucursal(s);">
+      <ion-item mode="md" class="item-sucursal" *ngFor = "let s of sucursales" (click)="seleccionarSucursal(s);">
         <ion-avatar>
           <img class="imagen-sucursal" src="https://image.flaticon.com/icons/svg/770/770080.svg">
         </ion-avatar>
@@ -42,9 +42,9 @@
 
     <div class="parte-derecha" *ngIf="banderaSucursal">
       <div class="celular">
-        <ion-buttons>
+        <ion-buttons mode="md">
           <ion-button (click)="cerrarSucursal();">
-            <ion-icon slot="icon-only" name="close"></ion-icon>
+            <ion-icon class="icono" slot="icon-only" name="close"></ion-icon>
           </ion-button>
         </ion-buttons>
       </div>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="contenedor-boton">
-          <ion-button class="boton-ingreso" (click)="abrirSucursal();">Ingresar a la sucursal</ion-button>
+          <ion-button mode="md" class="boton-ingreso" (click)="abrirSucursal();">Ingresar a la sucursal</ion-button>
         </div>
       </div>
     </div>

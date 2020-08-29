@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="md">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="cerrarModal()" color="light">
@@ -11,17 +11,17 @@
 
 <ion-content>
   <form>
-    <ion-item>
+    <ion-item mode="md">
       <ion-label>Descuento</ion-label>
       1200
     </ion-item>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-label>Total</ion-label>
       1200
     </ion-item>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
       </ion-avatar>
@@ -33,7 +33,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
       </ion-avatar>
@@ -44,7 +44,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
       </ion-avatar>
@@ -55,12 +55,12 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-label>Cliente Existente</ion-label>
       <ion-toggle [(ngModel)]="clientExist" name="banderaOpciones" (click)="cambiarEstadoCliente();"></ion-toggle><!--(click)="limpiar();"-->
     </ion-item>
 
-    <ion-item *ngIf="clientExist">
+    <ion-item *ngIf="clientExist" mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
       </ion-avatar>
@@ -69,9 +69,9 @@
     </ion-item>
 
     <ion-list *ngIf="nombreCliente != '' && clientExist">
-      <ion-radio-group>
+      <ion-radio-group mode="md">
         <ion-list-header>Clientes</ion-list-header>
-          <ion-item  *ngFor="let cliente of clientesFiltrado" (click)="verCliente(cliente)">
+          <ion-item  mode="md" *ngFor="let cliente of clientesFiltrado" (click)="verCliente(cliente)">
             <ion-avatar slot="start">
               <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
             </ion-avatar>
@@ -83,6 +83,6 @@
   </form>
 
   <div class="contenedor-boton">
-    <ion-button class="boton-pago" (click)="guardarVenta();">Generar Venta</ion-button>
+    <ion-button mode="md" class="boton-pago" (click)="guardarVenta();">Generar Venta</ion-button>
   </div>
 </ion-content>
