@@ -6,10 +6,10 @@
         <ion-icon slot="icon-only" name="pricetag"></ion-icon>
       </ion-button>
       -->
-      <ion-button class="escritorio" (click)="activarMenu();" *ngIf="banderaMenu==true"><!-- (click)="cerrarModal()" -->
+      <ion-button class="escritorio" (click)="activarMenu();" *ngIf="!banderaMenu"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-deseleccionado" slot="icon-only" name="menu"></ion-icon>
       </ion-button>
-      <ion-button class="escritorio" (click)="activarMenu();" *ngIf="banderaMenu==false"><!-- (click)="cerrarModal()" -->
+      <ion-button class="escritorio" (click)="activarMenu();" *ngIf="banderaMenu"><!-- (click)="cerrarModal()" -->
         <ion-icon class="icono-seleccionado" slot="icon-only" name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -51,8 +51,8 @@
   <div class="contenedor">
     <div class="contenedor-principal" *ngIf="banderaPrincipal==true">
       <div class="cursos">
-        <div class="containerCard" *ngFor="let p of productosFiltrados"><!-- (click)="abrirDetalle(r)" -->
-          <div class="card" (click)="abrirDetalle(p);">
+        <div class="containerCard" *ngFor="let p of productosFiltrados;index as indice"><!-- (click)="abrirDetalle(r)" -->
+          <div class="card" (click)="abrirDetalle(p,indice);">
             <h1 style="color:#fa949d">{{p.titulo}}</h1>
             <img class="imagen" src="https://image.flaticon.com/icons/svg/609/609446.svg">
             <h1 style="color:#fa949d">${{p.venta| number}}</h1>
@@ -71,26 +71,26 @@
               </ion-button>
             </ion-buttons>
           </div>
-      <ion-slides>
-        <ion-slide class="slide">
-          <div class="contenedor-textos-titulos">
-            <h1 class="titulo-producto">{{producto.titulo}}</h1>
-            <h1 class="precio-producto">${{producto.venta| number}}</h1>
-          </div>
-          <div class="contenedor-textos-titulos">
-            <p class="codigo-producto">Codigo: {{producto.codigo}}</p>
-            <div class="contenedor-estrellas">
-              <p class="codigo-producto"></p>
+      <ion-slides #subscriptionSlider [options]="sliderConfig" (ionSlidesDidLoad)="cargarSlide()" (ionSlideTouchEnd)="cambiarSlide($event)">
+        <ion-slide class="slide" *ngFor="let prod of productosFiltrados" >
+            <div class="contenedor-textos-titulos">
+              <h1 class="titulo-producto">{{prod.titulo}}</h1>
+              <h1 class="precio-producto">${{prod.venta| number}}</h1>
+            </div>
+            <div class="contenedor-textos-titulos">
+              <p class="codigo-producto">Codigo: {{prod.codigo}}</p>
+              <div class="contenedor-estrellas">
+                <p class="codigo-producto"></p>
+              </div>
+            </div>
+
+          <div class="card-producto">
+            <div class="contenedor-imagen-producto">
+              <img class="imagen-producto" src="../assets/icon/pingu.svg">
             </div>
           </div>
-
-      <div class="card-producto">
-        <div class="contenedor-imagen-producto">
-          <img class="imagen-producto" src="../assets/icon/pingu.svg">
-        </div>
-      </div>
-    </ion-slide>
-  </ion-slides>
+        </ion-slide>
+      </ion-slides>
       <p class="descripcion-producto">Descripción:<br><br>{{producto.descripcion}}</p>
 
       <p class="descripcion-cantidad">Cantidad<br><br>{{producto.cantidad| number}} unidades disponibles</p>

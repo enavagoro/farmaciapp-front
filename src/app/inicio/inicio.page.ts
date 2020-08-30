@@ -15,12 +15,19 @@ import { IonInfiniteScroll } from '@ionic/angular';
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
+  @ViewChild('subscriptionSlider',{static:false}) subscriptionSlider;
+  slideActual = 0;
+  sliderConfig = {
+    slidesPerView: 1.6,
+    spaceBetween: 10,
+    centeredSlides: true
+  };
   @ViewChild('buscarInput',{static:false}) buscarInput;
   @ViewChild(IonInfiniteScroll,{static:false}) infiniteScroll: IonInfiniteScroll;
 
-  @HostListener('document:click', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+  //@HostListener('document:click', ['$event']) onKeydownHandler(event: KeyboardEvent) {
 
-    console.log('target ', event.target);
+    //console.log('target ', event.target);
     /*
     console.log('id-container',document.getElementById("contenedor-categorias"));
     console.log('id-boton',document.getElementById("boton-categoria"));
@@ -43,7 +50,7 @@ export class InicioPage implements OnInit {
       (this.buscar ? this.productos = this.productos.filter( producto => this.filtrarProductos(producto,this.buscar)) : this.productos = this.productos)
     }
 */
-  }
+  //}
   buscar : string = undefined;
   /* Producto
     {
@@ -65,7 +72,7 @@ export class InicioPage implements OnInit {
   banderaMenu = true;
   banderaDescuento = true;
 
-  banderaCategoria = true;
+  banderaCategoria = false;
   todosLosProductos = [];
 
   productos = [];
@@ -119,8 +126,24 @@ export class InicioPage implements OnInit {
                 */
             }
 
-  ngOnInit() {
+  cambiarSlide(event){
+    console.log("CAmbiado",event);
+    this.subscriptionSlider.getActiveIndex().then(index => {
+      let realIndex = index;
+      if (event.target.swiper.isEnd) {  // Added this code because getActiveIndex returns wrong index for last slide
+        realIndex = this.productosFiltrados.length - 1;
+      }
+      this.producto = this.productosFiltrados[realIndex];
+      // You can now use real index
+    });
+    //this.producto = prod;
+  }
+  ngAfterViewInit(){
     this.carritoService.toggleCarrito();
+    //this.ngOnInit();
+  }
+  ngOnInit() {
+
 
     this.carritoService.getCarrito().subscribe(estado => {
       this.banderaBarra = estado['bandera'];
@@ -225,12 +248,16 @@ export class InicioPage implements OnInit {
 
   }
 
-  abrirDetalle(producto){
+  abrirDetalle(producto,indice){
     this.producto = producto;
     this.activarPagePrincipal();
     this.iniciarSelector();
+    this.slideActual = indice;
   }
-
+  cargarSlide(){
+    console.log("en el slide");
+    this.subscriptionSlider.slideTo(this.slideActual);
+  }
   iniciarSelector(){
     this.selector.numeroMaximo = this.producto.cantidad;
     this.selector.numeroActual = 0;
