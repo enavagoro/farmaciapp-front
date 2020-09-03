@@ -233,12 +233,29 @@ export class InicioPage implements OnInit {
     console.log('buscar',this.buscar);
 
     for(let i=0; i<this.productos.length; i++){
-
+      /*
+      Añadido por Cristopher Orellana 31 Agosto 02:10
+      */
+      var producto = this.productos[i];
+      if(!producto.estado){
+        break;
+      }
+      for(var indice in producto){
+        if(typeof(producto[indice]) == "string" ){
+          if(producto[indice].toUpperCase().includes(this.buscar.toUpperCase() ) ){
+            this.productosFiltrados.push(producto);
+            break;
+          }
+        }
+      }
+      /*
+      Comentado codigo previo
       var titulo = this.productos[i].titulo.toUpperCase();
 
       if(titulo.includes(this.buscar.toUpperCase()) && this.productos[i].estado != 0 ){
         this.productosFiltrados.push(this.productos[i]);
       }
+      */
     }
 
     if(this.buscar==""){
