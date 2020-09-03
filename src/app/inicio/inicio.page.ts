@@ -7,13 +7,12 @@ import { StockService } from '../_servicios/stock.service';
 import { Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 
-
-
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
+
 export class InicioPage implements OnInit {
   @ViewChild('subscriptionSlider',{static:false}) subscriptionSlider;
   slideActual = 0;
@@ -22,17 +21,28 @@ export class InicioPage implements OnInit {
     spaceBetween: 10,
     centeredSlides: true
   };
+
   @ViewChild('buscarInput',{static:false}) buscarInput;
   @ViewChild(IonInfiniteScroll,{static:false}) infiniteScroll: IonInfiniteScroll;
 
-  //@HostListener('document:click', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+  @HostListener('document:click', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    var contenedorCategoria = document.getElementById("contenedor-categorias");
+    /*console.log('posicion mouse ', event);*/
+    if(contenedorCategoria){
+      var posicion = contenedorCategoria.getBoundingClientRect();
+      console.log('posision del elemento',posicion);
+      this.compararPosicion(posicion.bottom,posicion.top,posicion.left,posicion.right,event);
+    }
 
-    //console.log('target ', event.target);
-    /*
-    console.log('id-container',document.getElementById("contenedor-categorias"));
-    console.log('id-boton',document.getElementById("boton-categoria"));
-*/
 /*
+    console.log('este es el contenedor',contenedorCategoria);
+
+*/
+
+
+/*
+    console.log('id-boton',document.getElementById("boton-categoria"));
+
     if(event.target != document.getElementById("contenedor-categorias")){
       console.log('el target está afuera de categorias');
     }
@@ -50,7 +60,7 @@ export class InicioPage implements OnInit {
       (this.buscar ? this.productos = this.productos.filter( producto => this.filtrarProductos(producto,this.buscar)) : this.productos = this.productos)
     }
 */
-  //}
+  }
   buscar : string = undefined;
   /* Producto
     {
@@ -400,4 +410,19 @@ export class InicioPage implements OnInit {
     this.categorias = this.categoriasRespaldo;
     this.productosFiltrados = this.productosRespaldados;
   }
+
+  compararPosicion(abajo,arriba,izquierda,derecha,posicionMouse){
+    console.log('mouseX',posicionMouse.pageX);
+    console.log('mouseY',posicionMouse.pageY);
+    console.log('abajo',abajo);
+    console.log('arriba',arriba);
+    console.log('izquierda',izquierda);
+    console.log('derecha',derecha);
+
+
+    if((posicionMouse.pageX < izquierda || posicionMouse.pageX > derecha) || (posicionMouse.pageY > abajo/* || posicionMouse.pageY < arriba*/)) {
+      this.banderaCategoria = false;
+    }
+  }
+
 }
